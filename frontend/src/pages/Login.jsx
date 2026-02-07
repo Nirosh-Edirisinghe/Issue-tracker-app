@@ -3,6 +3,7 @@ import { useContext } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useState } from 'react'
 import { toast } from 'react-toastify'
+import { Eye, EyeOff } from "lucide-react";
 import axios from 'axios'
 import { assets } from '../assets/assets'
 import { AppContext } from '../context/AppContext'
@@ -15,6 +16,7 @@ const Login = () => {
   const [name, setName] = useState('')
   const [password, setPassword] = useState('')
   const [email, setEmail] = useState('')
+  const [showPassword, setShowPassword] = useState(false);
 
   // handle User register and login
   const onsubmitHandle = async (event) => {
@@ -126,12 +128,23 @@ const Login = () => {
 
             <div className="mb-6">
               <label className="text-sm text-slate-700">Password</label>
-              <input className="w-full border border-slate-300 rounded-md px-3 py-2 mt-1 focus:ring-1 focus:ring-slate-800 outline-none"
-                type="password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                required
-              />
+              <div className="relative">
+                <input
+                  className="w-full border border-slate-300 rounded-md px-3 py-2 mt-1 pr-10 focus:ring-1 focus:ring-slate-800 outline-none"
+                  type={showPassword ? "text" : "password"}
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  required
+                />
+
+                <button
+                  type="button"
+                  onClick={() => setShowPassword(!showPassword)}
+                  className="absolute inset-y-0 right-3 flex items-center text-slate-500 hover:text-slate-800"
+                >
+                  {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
+                </button>
+              </div>
             </div>
 
             <button
@@ -166,9 +179,6 @@ const Login = () => {
         </div>
 
       </div>
-
-
-
 
     </>
   )
