@@ -4,6 +4,8 @@ import { createContext } from "react";
 export const AppContext = createContext()
 
 const AppContextProvider = (props) => {
+
+  const backendUrl = import.meta.env.VITE_BACKEND_URL
   const [token, setToken] = useState(localStorage.getItem("Utoken"))
 
   const login = (token) => {
@@ -16,7 +18,7 @@ const AppContextProvider = (props) => {
     setToken(null);
   };
 
-  const value = { token, setToken, login, logout }
+  const value = { token, setToken, login, logout, backendUrl }
 
   return (
     <AppContext.Provider value={value}>
