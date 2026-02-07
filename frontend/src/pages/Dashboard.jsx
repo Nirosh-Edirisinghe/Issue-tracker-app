@@ -1,6 +1,9 @@
 import React from 'react'
-import {AlertCircle, Loader, CheckCircle, XCircle,} from "lucide-react";
-import { issues } from '../assets/assets';
+import { AlertCircle, Loader, CheckCircle, XCircle, } from "lucide-react";
+import { assets, issues } from '../assets/assets';
+import formatDate from '../Utils/formatDate';
+import IssuesBlock from '../components/IssuesBlock';
+import { useMemo } from "react";
 
 const Dashboard = () => {
 
@@ -9,9 +12,23 @@ const Dashboard = () => {
   const resolvedCount = issues.filter(issue => issue.status === "RESOLVED").length;
   const closedCount = issues.filter(issue => issue.status === "CLOSED").length;
 
+  // filter lates issues
+  const latestIssues = useMemo(() => {
+    return [...issues]
+      .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
+      .slice(0, 3);
+  }, [issues]);
+
+  const statusStyles = {
+    OPEN: "bg-blue-100 text-blue-700",
+    IN_PROGRESS: "bg-yellow-100 text-yellow-700",
+    RESOLVED: "bg-green-100 text-green-700",
+    CLOSED: "bg-red-100 text-red-700",
+  };
+
   return (
     <>
-      <div className="p-6">
+      <div className="px-1 py-6 sm:p-6 min-h-screen">
         {/* Title */}
         <div>
           <h1 className="text-2xl text-slate-900 font-bold mb-6">Dashboard</h1>
@@ -56,6 +73,69 @@ const Dashboard = () => {
             <XCircle className="w-8 h-8 text-red-500" />
           </div>
 
+        </div>
+
+        {/* Latest Issues Section */}
+        <div className=" bg-white rounded-lg shadow-sm mt-10">
+          <div className="p-5 ">
+            <h2 className="text-lg font-semibold text-gray-800">
+              Latest Issues
+            </h2>
+          </div>
+
+          <div className="hidden md:block overflow-x-auto">
+            <table className="min-w-full text-sm">
+              <thead className="bg-gray-100 text-gray-600">
+                <tr>
+                  <th className="text-left px-5 py-3">Issue</th>
+                  <th className="text-left px-5 py-3">Status</th>
+                  <th className="text-left px-5 py-3">Created At</th>
+                  <th className="text-left px-5 py-3">From</th>
+                </tr>
+              </thead>
+
+              <tbody>
+                {latestIssues.map((issue) => (
+                  <tr key={issue.id} className=" hover:bg-gray-50">
+                    <td className="px-5 py-4 font-medium text-gray-700 whitespace-nowrap">
+                      {issue.title}
+                    </td>
+
+                    <td className="px-5 py-4 whitespace-nowrap">
+                      <span className={`px-3 py-1 rounded-md text-xs font-semibold ${statusStyles[issue.status]}`}
+                      >
+                        {issue.status.replace("_", " ")}
+                      </span>
+                    </td>
+
+                    <td className="px-5 py-4 text-gray-700 whitespace-nowrap">
+                      {formatDate(issue.createdAt)}
+                    </td>
+
+                    <td className="px-5 py-4 whitespace-nowrap">
+                      <div className="flex items-center gap-3">
+                        <img src={assets.profile} alt="user" className="w-8 h-8 rounded-full" />
+                        <span className="text-gray-700">
+                          {issue.user.name}
+                        </span>
+                      </div>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+
+          {/* Issues block in mobile view */}
+          <div className="block md:hidden space-y-4 px-4 pb-4">
+            {latestIssues.map((issue) => (
+              <IssuesBlock
+                key={issue.id}
+                issue={issue}
+                statusStyles={statusStyles}
+                formatDate={formatDate} />
+            ))}
+          </div>
         </div>
 
       </div>
