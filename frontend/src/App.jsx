@@ -4,6 +4,8 @@ import { Route, Routes } from 'react-router-dom';
 import Login from './pages/Login';
 import ProtectedRoute from './auth/ProtectedRoute';
 import Dashboard from './pages/Dashboard';
+import AppLayout from './layouts/AppLayout';
+import Issues from './pages/Issues ';
 
 function App() {
 
@@ -16,13 +18,15 @@ function App() {
         
         {/* Protected routes */}
         <Route
-          path="/"
           element={
             <ProtectedRoute>
-              <Dashboard />
+              <AppLayout />
             </ProtectedRoute>
           }
-        />
+        >
+          <Route path="/" element={<Dashboard />} />
+          <Route path="/issues" element={<Issues />} />
+        </Route>
       </Routes>
     </>
   )
