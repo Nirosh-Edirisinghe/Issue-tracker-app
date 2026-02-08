@@ -5,14 +5,17 @@ import { FiChevronDown, FiSearch } from "react-icons/fi";
 import IssuesBlock from '../components/IssuesBlock';
 import { useNavigate } from "react-router-dom";
 import { statusStyles } from '../Utils/Themes';
+import AddIssue from '../components/AddIssue';
 
 const Issues = () => {
 
   const [priority, setPriority] = useState("All");
   const [search, setSearch] = useState("");
   const [priorityOpen, setPriorityOpen] = useState(false);
+  const [openAddIssue, setOpenAddIssue] = useState(false);
   const dropdownRef = useRef(null);
   const navigate = useNavigate();
+
 
   const priorityOptions = [
     { value: "All", label: "All Issues" },
@@ -107,7 +110,7 @@ const Issues = () => {
               )}
             </div>
 
-            <button className=' px-3 py-2 text-sm bg-blue-600 text-white font-semibold rounded-md'>+ Add Issues</button>
+            <button onClick={() => setOpenAddIssue(true)} className=' px-3 py-2 text-sm bg-primary text-white font-semibold rounded-md'>+ Add Issues</button>
           </div>
 
           {/* issue list in desktop view */}
@@ -176,8 +179,18 @@ const Issues = () => {
                 formatDate={formatDate} />
             ))}
           </div>
+
         </div>
+
+
       </div>
+
+      {/* add issue from */}
+      {openAddIssue && (
+        <div className="fixed inset-0 bg-black/40 flex items-center justify-center z-50">
+          <AddIssue onClose={() => setOpenAddIssue(false)} />
+        </div>
+      )}
     </>
   )
 }
