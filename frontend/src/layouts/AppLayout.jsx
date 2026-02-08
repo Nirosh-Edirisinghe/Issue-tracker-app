@@ -20,7 +20,7 @@ const AppLayout = () => {
       <div className="flex-1 flex flex-col">
 
         {/* Top bar for mobile screen */}
-        <div className="md:hidden flex items-center gap-3 bg-white px-4 py-3 shadow">
+        <div className="lg:hidden flex items-center gap-3 bg-white px-4 py-3 shadow">
           <button onClick={() => setSidebarOpen(true)} className="text-slate-700">
             <Menu size={24} />
           </button>

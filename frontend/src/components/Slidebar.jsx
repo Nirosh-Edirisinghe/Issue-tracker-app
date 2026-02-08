@@ -20,7 +20,7 @@ const Slidebar = ({ sidebarOpen, setSidebarOpen }) => {
 
       {/* Sidebar */}
       <aside
-        className={`fixed z-50 inset-y-0 left-0 w-64 md:w-40 lg:w-52 bg-slate-900 text-white flex flex-col transform transition-transform duration-300 ${sidebarOpen ? "translate-x-0" : "-translate-x-full"} md:static md:translate-x-0`}
+        className={`fixed z-50 inset-y-0 left-0 w-64 bg-slate-900 text-white flex flex-col transform transition-transform duration-300 ${sidebarOpen ? "translate-x-0" : "-translate-x-full"} lg:static lg:translate-x-0`}
       >
         {/* Header section */}
         <div className="px-6 py-5 flex items-center justify-between border-b border-slate-800">

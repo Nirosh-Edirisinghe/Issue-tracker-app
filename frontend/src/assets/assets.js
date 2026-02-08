@@ -15,7 +15,7 @@ export const issues = [
     id: 1,
     title: "Login button not working",
     status: "OPEN",
-    priority: "HIGH",
+    priority: "high",
     createdAt: "2026-02-01T14:17:53.074+00:00",
     user: {
       name: "Nirosh Prasanna",
@@ -26,7 +26,7 @@ export const issues = [
     id: 2,
     title: "UI alignment issue",
     status: "IN_PROGRESS",
-    priority: "MEDIUM",
+    priority: "medium",
     createdAt: "2026-02-02T14:17:53.074+00:00",
     user: {
       name: "Kasun Perera",
@@ -37,7 +37,7 @@ export const issues = [
     id: 3,
     title: "API response delay",
     status: "RESOLVED",
-    priority: "HIGH",
+    priority: "high",
     createdAt: "2026-02-04T14:17:53.074+00:00",
     user: {
       name: "Saman Silva",
@@ -49,7 +49,7 @@ export const issues = [
     id: 4,
     title: "UI alignment issue in web",
     status: "CLOSED",
-    priority: "HIGH",
+    priority: "high",
     createdAt: "2026-02-06",
     user: {
       name: "Saman Silva",
@@ -60,7 +60,63 @@ export const issues = [
     id: 5,
     title: "Typo in dashboard title",
     status: "OPEN",
-    priority: "HIGH",
+    priority: "low",
+    createdAt: "2026-02-03T14:17:53.074+00:00",
+    user: {
+      name: "Saman Silva",
+      avatar: null,
+    },
+  },
+  {
+    id: 6,
+    title: "Login button not working",
+    status: "OPEN",
+    priority: "high",
+    createdAt: "2026-02-01T14:17:53.074+00:00",
+    user: {
+      name: "Nirosh Prasanna",
+      avatar: null,
+    },
+  },
+  {
+    id: 7,
+    title: "UI alignment issue",
+    status: "IN_PROGRESS",
+    priority: "medium",
+    createdAt: "2026-02-02T14:17:53.074+00:00",
+    user: {
+      name: "Kasun Perera",
+      avatar: null,
+    },
+  },
+  {
+    id: 8,
+    title: "API response delay",
+    status: "RESOLVED",
+    priority: "high",
+    createdAt: "2026-02-04T14:17:53.074+00:00",
+    user: {
+      name: "Saman Silva",
+      avatar: null,
+    },
+  },
+
+  {
+    id: 9,
+    title: "UI alignment issue in web",
+    status: "CLOSED",
+    priority: "high",
+    createdAt: "2026-02-06",
+    user: {
+      name: "Saman Silva",
+      avatar: null,
+    },
+  },
+  {
+    id: 10,
+    title: "Typo in dashboard title",
+    status: "OPEN",
+    priority: "low",
     createdAt: "2026-02-03T14:17:53.074+00:00",
     user: {
       name: "Saman Silva",
