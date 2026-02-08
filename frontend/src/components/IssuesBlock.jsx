@@ -1,11 +1,15 @@
 import React from 'react'
 import { assets } from '../assets/assets'
+import { useNavigate } from 'react-router-dom';
 
 const IssuesBlock = ({ issue, statusStyles, formatDate }) => {
+  const navigate = useNavigate();
+
   return (
     <>
-      <div className="rounded-lg p-4 shadow-lg bg-white">
-
+      <div className="rounded-lg p-4 shadow-lg bg-white"
+        onClick={() => navigate(`/issue/${issue.id}`, { state: { issue } })}
+      >
         <div className="flex justify-between items-start">
           <h3 className="font-semibold text-gray-700">
             {issue.title}

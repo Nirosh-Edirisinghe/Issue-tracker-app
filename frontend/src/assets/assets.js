@@ -16,6 +16,7 @@ export const issues = [
     title: "Login button not working",
     status: "OPEN",
     priority: "high",
+    description: "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Expedita quasi quod harum iusto repellat officiis similique tempore, vero accusamus,",
     createdAt: "2026-02-01T14:17:53.074+00:00",
     user: {
       name: "Nirosh Prasanna",
@@ -27,6 +28,7 @@ export const issues = [
     title: "UI alignment issue",
     status: "IN_PROGRESS",
     priority: "medium",
+    description: "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Expedita quasi quod harum iusto repellat officiis similique tempore, vero accusamus,",
     createdAt: "2026-02-02T14:17:53.074+00:00",
     user: {
       name: "Kasun Perera",
@@ -38,6 +40,7 @@ export const issues = [
     title: "API response delay",
     status: "RESOLVED",
     priority: "high",
+    description: "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Expedita quasi quod harum iusto repellat officiis similique tempore, vero accusamus,",
     createdAt: "2026-02-04T14:17:53.074+00:00",
     user: {
       name: "Saman Silva",
@@ -50,6 +53,7 @@ export const issues = [
     title: "UI alignment issue in web",
     status: "CLOSED",
     priority: "high",
+    description: "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Expedita quasi quod harum iusto repellat officiis similique tempore, vero accusamus,",
     createdAt: "2026-02-06",
     user: {
       name: "Saman Silva",
@@ -61,6 +65,7 @@ export const issues = [
     title: "Typo in dashboard title",
     status: "OPEN",
     priority: "low",
+    description: "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Expedita quasi quod harum iusto repellat officiis similique tempore, vero accusamus,",
     createdAt: "2026-02-03T14:17:53.074+00:00",
     user: {
       name: "Saman Silva",
@@ -72,6 +77,7 @@ export const issues = [
     title: "Login button not working",
     status: "OPEN",
     priority: "high",
+    description: "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Expedita quasi quod harum iusto repellat officiis similique tempore, vero accusamus,",
     createdAt: "2026-02-01T14:17:53.074+00:00",
     user: {
       name: "Nirosh Prasanna",
@@ -83,6 +89,7 @@ export const issues = [
     title: "UI alignment issue",
     status: "IN_PROGRESS",
     priority: "medium",
+    description: "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Expedita quasi quod harum iusto repellat officiis similique tempore, vero accusamus,",
     createdAt: "2026-02-02T14:17:53.074+00:00",
     user: {
       name: "Kasun Perera",
@@ -94,6 +101,7 @@ export const issues = [
     title: "API response delay",
     status: "RESOLVED",
     priority: "high",
+    description: "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Expedita quasi quod harum iusto repellat officiis similique tempore, vero accusamus,",
     createdAt: "2026-02-04T14:17:53.074+00:00",
     user: {
       name: "Saman Silva",
@@ -106,6 +114,7 @@ export const issues = [
     title: "UI alignment issue in web",
     status: "CLOSED",
     priority: "high",
+    description: "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Expedita quasi quod harum iusto repellat officiis similique tempore, vero accusamus,",
     createdAt: "2026-02-06",
     user: {
       name: "Saman Silva",
@@ -117,6 +126,7 @@ export const issues = [
     title: "Typo in dashboard title",
     status: "OPEN",
     priority: "low",
+    description: "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Expedita quasi quod harum iusto repellat officiis similique tempore, vero accusamus,",
     createdAt: "2026-02-03T14:17:53.074+00:00",
     user: {
       name: "Saman Silva",

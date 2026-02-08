@@ -3,6 +3,8 @@ import { assets, issues } from '../assets/assets'
 import formatDate from '../Utils/formatDate'
 import { FiChevronDown, FiSearch } from "react-icons/fi";
 import IssuesBlock from '../components/IssuesBlock';
+import { useNavigate } from "react-router-dom";
+import { statusStyles } from '../Utils/Themes';
 
 const Issues = () => {
 
@@ -10,13 +12,7 @@ const Issues = () => {
   const [search, setSearch] = useState("");
   const [priorityOpen, setPriorityOpen] = useState(false);
   const dropdownRef = useRef(null);
-
-  const statusStyles = {
-    OPEN: "bg-blue-100 text-blue-700",
-    IN_PROGRESS: "bg-yellow-100 text-yellow-700",
-    RESOLVED: "bg-green-100 text-green-700",
-    CLOSED: "bg-red-100 text-red-700",
-  };
+  const navigate = useNavigate();
 
   const priorityOptions = [
     { value: "All", label: "All Issues" },
@@ -131,7 +127,9 @@ const Issues = () => {
 
                 <tbody>
                   {filteredIssues.map((issue) => (
-                    <tr key={issue.id} className=" hover:bg-gray-50">
+                    <tr key={issue.id} className=" hover:bg-gray-50"
+                      onClick={() => navigate(`/issue/${issue.id}`, { state: { issue } })}
+                    >
                       <td className="px-5 py-4 font-medium text-gray-700 whitespace-nowrap">
                         {issue.title}
                       </td>
