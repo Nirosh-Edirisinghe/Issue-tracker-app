@@ -98,7 +98,7 @@ const Dashboard = () => {
               <tbody>
                 {latestIssues.map((issue) => (
                   <tr key={issue.id} className=" hover:bg-gray-50"
-                    onClick={() => navigate(`/issue/${issue.id}`, { state: { issue } })}
+                    onClick={() => navigate(`/issue/${issue.id}`)}
                   >
                     <td className="px-5 py-4 font-medium text-gray-700 whitespace-nowrap">
                       {issue.title}
