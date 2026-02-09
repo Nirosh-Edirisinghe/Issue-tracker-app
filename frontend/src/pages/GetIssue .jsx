@@ -7,6 +7,7 @@ import { useContext, useEffect, useState } from "react";
 import UpdateIssue from "../components/UpdateIssue";
 import axios from "axios";
 import { AppContext } from "../context/AppContext";
+import IssueStatusDropdown from "../components/IssueStatusDropdown";
 
 const GetIssue = () => {
   const { backendUrl, token } = useContext(AppContext)
@@ -66,10 +67,11 @@ const GetIssue = () => {
               <h1 className="text-xl font-bold text-gray-700">
                 {issue.title}
               </h1>
-              <span className={`px-5 py-1 rounded-md text-xs font-semibold ${statusStyles[issue.status]}`}
+              {/* <span className={`px-5 py-1 rounded-md text-xs font-semibold ${statusStyles[issue.status]}`}
               >
                 {issue.status.replace("_", " ")}
-              </span>
+              </span> */}
+              <IssueStatusDropdown initialStatus={issue.status} issueId={issue.id}/>
             </div>
 
             {/* Divider */}

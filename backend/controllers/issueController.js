@@ -76,7 +76,7 @@ const getAllIssues = async (req, res) => {
 const updateIssue = async (req, res) => {
   try {
     const issueId = req.params.id;
-    const userId = req.user.id; 
+    const userId = req.user.id;
     const { title, description, status, priority } = req.body;
 
     const issue = await IssueModel.findById(issueId);
@@ -155,5 +155,37 @@ const getSingleIssue = async (req, res) => {
   }
 };
 
+// update status
+const updateIssueStatus = async (req, res) => {
+  try {
+    const issueId = req.params.id;
+    const { status } = req.body;
 
-export { createIssue, getAllIssues, updateIssue , getSingleIssue}
+    const issue = await IssueModel.findById(issueId);
+
+    if (!issue) {
+      return res.status(404).json({
+        success: false,
+        message: "Issue not found",
+      });
+    }
+    issue.status = status;
+    await issue.save();
+
+    res.status(200).json({
+      success: true,
+      issue,
+    });
+
+  } catch (error) {
+    console.error("Update status error:", error);
+    res.status(500).json({
+      success: false,
+      message: "Server error",
+    });
+  }
+};
+
+
+
+export { createIssue, getAllIssues, updateIssue, getSingleIssue, updateIssueStatus }

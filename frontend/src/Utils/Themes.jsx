@@ -11,4 +11,11 @@ const statusStyles = {
   Low: "bg-green-100 text-green-700",
 };
 
-  export { statusStyles, priorityStyles}
+const statusOptions = [
+  { label: "Open", value: "Open" },
+  { label: "In Progress", value: "Inprogress" },
+  { label: "Resolved", value: "Resolved" },
+  { label: "Closed", value: "Closed" },
+];
+
+  export { statusStyles, priorityStyles, statusOptions}
