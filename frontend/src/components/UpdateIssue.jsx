@@ -1,17 +1,16 @@
-import { useContext, useState } from "react";
+import { useContext, useState, useEffect } from "react";
 import { ChevronDown, X } from "lucide-react";
 import { Listbox } from "@headlessui/react";
 import { AppContext } from "../context/AppContext";
-import axios from 'axios'
+import axios from "axios";
 import { toast } from "react-toastify";
 
-
 const priorities = ["Low", "Medium", "High"];
-const status = ["Open", "Inprogress"]
+const status = ["Open", "Inprogress", "Resolved", "Closed"];
 
-const AddIssue = ({ onClose }) => {
+const UpdateIssue = ({ issue, onClose, refreshIssue}) => {
+  const { token, backendUrl, fetchAllIssues } = useContext(AppContext);
 
-  const { token, backendUrl, fetchAllIssues } = useContext(AppContext)
   const [formData, setFormData] = useState({
     title: "",
     status: "Open",
@@ -19,65 +18,63 @@ const AddIssue = ({ onClose }) => {
     description: "",
   });
 
+  // Pre-fill form with isseu data
+  useEffect(() => {
+    if (issue) {
+      setFormData({
+        title: issue.title || "",
+        status: issue.status || "Open",
+        priority: issue.priority || "Medium",
+        description: issue.description || "",
+      });
+    }
+  }, [issue]);
+
   const handleChange = (e) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value,
-    });
+    setFormData({ ...formData, [e.target.name]: e.target.value });
   };
-
-  // handle form submit
-  const handleSubmit = async (e) => {
+  
+  // handle Issue Update
+  const updateIsuue = async (e) => {
     e.preventDefault();
-    console.log(formData);
-
     try {
-      const { data } = await axios.post(backendUrl + '/api/issue/create',
+      const { data } = await axios.put(
+        `${backendUrl}/api/issue/update-isseu/${issue.id}`,
+        formData,
         {
-          title: formData.title,
-          description: formData.description,
-          priority: formData.priority,
-          status: formData.status
-        },
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
+          headers: { Authorization: `Bearer ${token}` },
         }
-      )
-      if (data.success) {
-        toast.success(data.message);
-        setFormData({
-          title: "",
-          status: "Open",
-          priority: "Medium",
-          description: "",
-        })
-        fetchAllIssues();
+      );
 
+      if (data.success) {
+        toast.success("Issue updated successfully!");
+        refreshIssue();
+        fetchAllIssues();
+        onClose();
       } else {
-        toast.error(data.message)
+        toast.error(data.message);
       }
     } catch (error) {
-      console.log(error)
-      toast.error(error.message)
+      console.log(error);
+      toast.error(error.message);
     }
   };
 
-  return (
+  if (!issue) return null;
 
+  return (
     <div className="p-6 w-full max-w-lg mx-4 bg-white rounded-lg shadow">
 
+      {/* Header */}
       <div className="flex items-center justify-between">
-        <h2 className="text-xl font-bold mb-4 text-slate-800">Add New Issue</h2> 
+        <h2 className="text-xl font-bold mb-4 text-slate-800">Update Issue</h2>
         <button onClick={onClose}>
           <X size={20} className="stroke-gray-800" />
         </button>
       </div>
 
-
-      <form onSubmit={handleSubmit} className="space-y-4">
-
+      {/* Form */}
+      <form onSubmit={updateIsuue} className="space-y-4">
         {/* Title */}
         <div>
           <label className="block font-medium mb-1 text-gray-800">Title</label>
@@ -91,7 +88,7 @@ const AddIssue = ({ onClose }) => {
           />
         </div>
 
-        {/* status */}
+        {/* Status */}
         <div>
           <label className="block font-medium mb-1 text-gray-800">Status</label>
           <Listbox
@@ -100,8 +97,6 @@ const AddIssue = ({ onClose }) => {
           >
             {({ open }) => (
               <div className="relative">
-
-                {/* Button */}
                 <Listbox.Button className="w-full border border-gray-300 focus:outline-none focus:ring-1 focus:ring-primary/60 rounded-md px-3 py-2 text-left flex items-center justify-between text-slate-600">
                   <span className="capitalize">{formData.status}</span>
                   <ChevronDown
@@ -110,16 +105,14 @@ const AddIssue = ({ onClose }) => {
                   />
                 </Listbox.Button>
 
-                {/* Options */}
                 <Listbox.Options className="absolute mt-1 w-full border border-gray-300 bg-white shadow-md rounded-md z-10 overflow-hidden">
                   {status.map((status) => (
                     <Listbox.Option
                       key={status}
                       value={status}
                       className={({ active }) =>
-                        `cursor-pointer px-3 py-1 capitalize border-b border-gray-100 ${active
-                          ? "bg-blue-200 text-gray-600"
-                          : "text-gray-700"}`
+                        `cursor-pointer px-3 py-1 capitalize border-b border-gray-100 ${active ? "bg-blue-200 text-gray-600" : "text-gray-700"
+                        }`
                       }
                     >
                       {status}
@@ -136,15 +129,11 @@ const AddIssue = ({ onClose }) => {
           <label className="block font-medium mb-1 text-gray-800">Priority</label>
           <Listbox
             value={formData.priority}
-            onChange={(value) =>
-              setFormData({ ...formData, priority: value })
-            }
+            onChange={(value) => setFormData({ ...formData, priority: value })}
           >
             {({ open }) => (
               <div className="relative">
-                {/* Button */}
-                <Listbox.Button className="w-full border border-gray-300 focus:outline-none focus:ring-1 focus:ring-primary/60 rounded-md px-3 py-2 text-left flex items-center justify-between text-slate-600"
-                >
+                <Listbox.Button className="w-full border border-gray-300 focus:outline-none focus:ring-1 focus:ring-primary/60 rounded-md px-3 py-2 text-left flex items-center justify-between text-slate-600">
                   <span className="capitalize">{formData.priority}</span>
                   <ChevronDown
                     size={18}
@@ -152,16 +141,14 @@ const AddIssue = ({ onClose }) => {
                   />
                 </Listbox.Button>
 
-                {/* Options */}
-                <Listbox.Options className="absolute mt-1 w-full border border-gray-300 bg-white shadow-md rounded-md z-10  overflow-hidden"
-                >
+                <Listbox.Options className="absolute mt-1 w-full border border-gray-300 bg-white shadow-md rounded-md z-10 overflow-hidden">
                   {priorities.map((priority) => (
                     <Listbox.Option
                       key={priority}
                       value={priority}
                       className={({ active }) =>
-                        `cursor-pointer px-3 py-1 capitalize border-b border-gray-100 ${active
-                          ? "bg-blue-200 text-gray-600" : "text-gray-700"}`
+                        `cursor-pointer px-3 py-1 capitalize border-b border-gray-100 ${active ? "bg-blue-200 text-gray-600" : "text-gray-700"
+                        }`
                       }
                     >
                       {priority}
@@ -187,7 +174,7 @@ const AddIssue = ({ onClose }) => {
 
         {/* Submit */}
         <button type="submit" className="w-full bg-primary text-white py-2 rounded-md cursor-pointer">
-          Create Issue
+          Update Issue
         </button>
       </form>
 
@@ -195,4 +182,4 @@ const AddIssue = ({ onClose }) => {
   );
 };
 
-export default AddIssue;
+export default UpdateIssue;

@@ -48,9 +48,7 @@ const AppContextProvider = (props) => {
   }, [token]);
 
   const value = {
-    token, setToken, login, logout, backendUrl, issues,
-    loading,
-    fetchAllIssues,
+    token, setToken, login, logout, backendUrl, issues,loading,fetchAllIssues,
   }
 
   return (
