@@ -76,12 +76,12 @@ const GetIssue = () => {
 
               <div className="flex items-center gap-3">
                 <img
-                  src={issue.user.avatar || assets.profile}
+                  src={assets.profile}
                   alt="user"
                   className="w-10 h-10 rounded-full"
                 />
                 <span className="text-sm font-medium text-gray-700">
-                  {issue.user.name}
+                  {issue.userData.name}
                 </span>
               </div>
 

@@ -33,7 +33,7 @@ const IssuesBlock = ({ issue, statusStyles, formatDate }) => {
             className="w-8 h-8 rounded-full"
           />
           <span className="text-gray-700 text-sm">
-            {issue.user.name}
+            {issue.userData.name}
           </span>
         </div>
 

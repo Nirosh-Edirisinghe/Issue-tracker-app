@@ -11,7 +11,7 @@ const status = ["Open", "Inprogress"]
 
 const AddIssue = ({ onClose }) => {
 
-  const { token, backendUrl } = useContext(AppContext)
+  const { token, backendUrl, fetchAllIssues } = useContext(AppContext)
   const [formData, setFormData] = useState({
     title: "",
     status: "Open",
@@ -32,21 +32,20 @@ const AddIssue = ({ onClose }) => {
     console.log(formData);
 
     try {
-      const { data } = await axios.post(backendUrl + '/api/issue/create', 
+      const { data } = await axios.post(backendUrl + '/api/issue/create',
         {
-        title: formData.title,
-        description: formData.description,
-        priority: formData.priority,
-        status : formData.status
-      },
-      {
-        headers: {
-          Authorization: `Bearer ${token}`,
+          title: formData.title,
+          description: formData.description,
+          priority: formData.priority,
+          status: formData.status
         },
-      }
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
       )
       if (data.success) {
-        console.log("add success");
         toast.success(data.message);
         setFormData({
           title: "",
@@ -54,6 +53,8 @@ const AddIssue = ({ onClose }) => {
           priority: "Medium",
           description: "",
         })
+        fetchAllIssues();
+
       } else {
         toast.error(data.message)
       }

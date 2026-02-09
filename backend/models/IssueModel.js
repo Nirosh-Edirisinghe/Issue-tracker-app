@@ -27,12 +27,12 @@ const issueSchema = new mongoose.Schema(
 
     userId: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "User",
+      ref: "user",
       required: true,
     },
   },
   {
-    timestamps: true, // createdAt & updatedAt
+    timestamps: true, 
   }
 );
 

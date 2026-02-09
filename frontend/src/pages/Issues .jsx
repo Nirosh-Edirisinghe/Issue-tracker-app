@@ -1,13 +1,17 @@
 import React, { useEffect, useRef, useState } from 'react'
-import { assets, issues } from '../assets/assets'
+import { assets } from '../assets/assets'
 import formatDate from '../Utils/formatDate'
 import { FiChevronDown, FiSearch } from "react-icons/fi";
 import IssuesBlock from '../components/IssuesBlock';
 import { useNavigate } from "react-router-dom";
 import { statusStyles } from '../Utils/Themes';
 import AddIssue from '../components/AddIssue';
+import { useContext } from 'react';
+import { AppContext } from '../context/AppContext';
 
 const Issues = () => {
+
+  const { issues, loading } = useContext(AppContext);
 
   const [priority, setPriority] = useState("All");
   const [search, setSearch] = useState("");
@@ -19,9 +23,9 @@ const Issues = () => {
 
   const priorityOptions = [
     { value: "All", label: "All Issues" },
-    { value: "high", label: "High" },
-    { value: "medium", label: "Medium" },
-    { value: "low", label: "Low" },
+    { value: "High", label: "High" },
+    { value: "Medium", label: "Medium" },
+    { value: "Low", label: "Low" },
   ];
 
   // filter issues
@@ -158,7 +162,7 @@ const Issues = () => {
                         <div className="flex items-center gap-3">
                           <img src={assets.profile} alt="user" className="w-8 h-8 rounded-full" />
                           <span className="text-gray-700">
-                            {issue.user.name}
+                            {issue.userData.name}
                           </span>
                         </div>
                       </td>

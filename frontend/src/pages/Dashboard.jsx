@@ -1,16 +1,24 @@
 import React from 'react'
 import { AlertCircle, Loader, CheckCircle, XCircle, } from "lucide-react";
-import { assets, issues } from '../assets/assets';
+import { assets } from '../assets/assets';
 import formatDate from '../Utils/formatDate';
 import IssuesBlock from '../components/IssuesBlock';
 import { useMemo } from "react";
+import { useContext } from 'react';
+import { AppContext } from '../context/AppContext';
+import { statusStyles } from '../Utils/Themes';
+import { useNavigate } from 'react-router-dom';
 
 const Dashboard = () => {
 
-  const openCount = issues.filter(issue => issue.status === "OPEN").length;
-  const inProgressCount = issues.filter(issue => issue.status === "IN_PROGRESS").length;
-  const resolvedCount = issues.filter(issue => issue.status === "RESOLVED").length;
-  const closedCount = issues.filter(issue => issue.status === "CLOSED").length;
+  const { issues, loading } = useContext(AppContext);
+  const navigate = useNavigate()
+  // if (loading) return <p>Loading...</p>;
+
+  const openCount = issues.filter(issue => issue.status === "Open").length;
+  const inProgressCount = issues.filter(issue => issue.status === "Inprogress").length;
+  const resolvedCount = issues.filter(issue => issue.status === "Resolved").length;
+  const closedCount = issues.filter(issue => issue.status === "Closed").length;
 
   // filter lates issues
   const latestIssues = useMemo(() => {
@@ -18,13 +26,6 @@ const Dashboard = () => {
       .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
       .slice(0, 3);
   }, [issues]);
-
-  const statusStyles = {
-    OPEN: "bg-blue-100 text-blue-700",
-    IN_PROGRESS: "bg-yellow-100 text-yellow-700",
-    RESOLVED: "bg-green-100 text-green-700",
-    CLOSED: "bg-red-100 text-red-700",
-  };
 
   return (
     <>
@@ -96,7 +97,9 @@ const Dashboard = () => {
 
               <tbody>
                 {latestIssues.map((issue) => (
-                  <tr key={issue.id} className=" hover:bg-gray-50">
+                  <tr key={issue.id} className=" hover:bg-gray-50"
+                    onClick={() => navigate(`/issue/${issue.id}`, { state: { issue } })}
+                  >
                     <td className="px-5 py-4 font-medium text-gray-700 whitespace-nowrap">
                       {issue.title}
                     </td>
@@ -116,7 +119,7 @@ const Dashboard = () => {
                       <div className="flex items-center gap-3">
                         <img src={assets.profile} alt="user" className="w-8 h-8 rounded-full" />
                         <span className="text-gray-700">
-                          {issue.user.name}
+                          {issue.userData.name}
                         </span>
                       </div>
                     </td>
