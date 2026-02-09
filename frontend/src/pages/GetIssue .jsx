@@ -3,15 +3,18 @@ import formatDate from "../Utils/formatDate";
 import { assets } from "../assets/assets";
 import { priorityStyles, statusStyles } from "../Utils/Themes";
 import { FiArrowLeft } from "react-icons/fi";
+import { useState } from "react";
+import UpdateIssue from "../components/UpdateIssue";
 
 const GetIssue = () => {
   const { state } = useLocation(); // contains issue
   const { id } = useParams();
   const navigate = useNavigate();
 
-
   // If user opens page directly, handle missing state
   const issue = state?.issue;
+  
+  const [openUpdateIssue, setOpenUpdateIssue] = useState(false);
 
   if (!issue) {
     return (
@@ -93,13 +96,26 @@ const GetIssue = () => {
 
           {/* Action Buttons */}
           <div className="w-full sm:w-1/4 flex flex-col gap-3">
-            <button className="px-4 py-2 bg-primary text-white rounded-md">
+            <button
+              onClick={() => setOpenUpdateIssue(true)}
+              className="px-4 py-2 bg-primary text-white rounded-md"
+            >
               Edit Issue
             </button>
             <button className="px-4 py-2 bg-primary/70 text-white rounded-md">
               Delete Issue
             </button>
           </div>
+
+          {/*Update Issue Modal */}
+          {openUpdateIssue && (
+            <div className="fixed inset-0 bg-black/40 flex items-center justify-center z-50">
+              <UpdateIssue
+                issue={issue}
+                onClose={() => setOpenUpdateIssue(false)}
+              />
+            </div>
+          )}
         </div>
 
       </div>
