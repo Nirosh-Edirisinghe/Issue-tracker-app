@@ -1,16 +1,21 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { ChevronDown, X } from "lucide-react";
 import { Listbox } from "@headlessui/react";
+import { AppContext } from "../context/AppContext";
+import axios from 'axios'
+import { toast } from "react-toastify";
 
 
-const priorities = ["low", "medium", "high"];
-const status = ["open", "inprogress"]
+const priorities = ["Low", "Medium", "High"];
+const status = ["Open", "Inprogress"]
 
 const AddIssue = ({ onClose }) => {
+
+  const { token, backendUrl } = useContext(AppContext)
   const [formData, setFormData] = useState({
     title: "",
-    status: "open",
-    priority: "medium",
+    status: "Open",
+    priority: "Medium",
     description: "",
   });
 
@@ -22,16 +27,40 @@ const AddIssue = ({ onClose }) => {
   };
 
   // handle form submit
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-
     console.log(formData);
-    setFormData({
-      title: "",
-      status: "open",
-      priority: "medium",
-      description: "",
-    })
+
+    try {
+      const { data } = await axios.post(backendUrl + '/api/issue/create', 
+        {
+        title: formData.title,
+        description: formData.description,
+        priority: formData.priority,
+        status : formData.status
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+      )
+      if (data.success) {
+        console.log("add success");
+        toast.success(data.message);
+        setFormData({
+          title: "",
+          status: "Open",
+          priority: "Medium",
+          description: "",
+        })
+      } else {
+        toast.error(data.message)
+      }
+    } catch (error) {
+      console.log(error)
+      toast.error(error.message)
+    }
   };
 
   return (
