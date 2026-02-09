@@ -2,9 +2,135 @@
 import loginImg from './login.png'
 import logo from './logo.png'
 import logo1 from './logo1.png'
+import logo2 from './logo2.png'
+import profile from './profile.jpg'
 
 
 export const assets = {
- loginImg,logo,logo1
- 
+ loginImg,logo,logo1,logo2,profile
 }
+
+export const issues = [
+  {
+    id: 1,
+    title: "Login button not working",
+    status: "Open",
+    priority: "high",
+    description: "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Expedita quasi quod harum iusto repellat officiis similique tempore, vero accusamus,",
+    createdAt: "2026-02-01T14:17:53.074+00:00",
+    user: {
+      name: "Nirosh Prasanna",
+      avatar: null,
+    },
+  },
+  {
+    id: 2,
+    title: "UI alignment issue",
+    status: "Inprogress",
+    priority: "medium",
+    description: "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Expedita quasi quod harum iusto repellat officiis similique tempore, vero accusamus,",
+    createdAt: "2026-02-02T14:17:53.074+00:00",
+    user: {
+      name: "Kasun Perera",
+      avatar: null,
+    },
+  },
+  {
+    id: 3,
+    title: "API response delay",
+    status: "Resolved",
+    priority: "high",
+    description: "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Expedita quasi quod harum iusto repellat officiis similique tempore, vero accusamus,",
+    createdAt: "2026-02-04T14:17:53.074+00:00",
+    user: {
+      name: "Saman Silva",
+      avatar: null,
+    },
+  },
+
+  {
+    id: 4,
+    title: "UI alignment issue in web",
+    status: "Closed",
+    priority: "high",
+    description: "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Expedita quasi quod harum iusto repellat officiis similique tempore, vero accusamus,",
+    createdAt: "2026-02-06",
+    user: {
+      name: "Saman Silva",
+      avatar: null,
+    },
+  },
+  {
+    id: 5,
+    title: "Typo in dashboard title",
+    status: "Open",
+    priority: "low",
+    description: "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Expedita quasi quod harum iusto repellat officiis similique tempore, vero accusamus,",
+    createdAt: "2026-02-03T14:17:53.074+00:00",
+    user: {
+      name: "Saman Silva",
+      avatar: null,
+    },
+  },
+  {
+    id: 6,
+    title: "Login button not working",
+    status: "Open",
+    priority: "high",
+    description: "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Expedita quasi quod harum iusto repellat officiis similique tempore, vero accusamus,",
+    createdAt: "2026-02-01T14:17:53.074+00:00",
+    user: {
+      name: "Nirosh Prasanna",
+      avatar: null,
+    },
+  },
+  {
+    id: 7,
+    title: "UI alignment issue",
+    status: "Inprogress",
+    priority: "medium",
+    description: "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Expedita quasi quod harum iusto repellat officiis similique tempore, vero accusamus,",
+    createdAt: "2026-02-02T14:17:53.074+00:00",
+    user: {
+      name: "Kasun Perera",
+      avatar: null,
+    },
+  },
+  {
+    id: 8,
+    title: "API response delay",
+    status: "Resolved",
+    priority: "high",
+    description: "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Expedita quasi quod harum iusto repellat officiis similique tempore, vero accusamus,",
+    createdAt: "2026-02-04T14:17:53.074+00:00",
+    user: {
+      name: "Saman Silva",
+      avatar: null,
+    },
+  },
+
+  {
+    id: 9,
+    title: "UI alignment issue in web",
+    status: "Closed",
+    priority: "high",
+    description: "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Expedita quasi quod harum iusto repellat officiis similique tempore, vero accusamus,",
+    createdAt: "2026-02-06",
+    user: {
+      name: "Saman Silva",
+      avatar: null,
+    },
+  },
+  {
+    id: 10,
+    title: "Typo in dashboard title",
+    status: "Open",
+    priority: "low",
+    description: "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Expedita quasi quod harum iusto repellat officiis similique tempore, vero accusamus,",
+    createdAt: "2026-02-03T14:17:53.074+00:00",
+    user: {
+      name: "Saman Silva",
+      avatar: null,
+    },
+  },
+];
