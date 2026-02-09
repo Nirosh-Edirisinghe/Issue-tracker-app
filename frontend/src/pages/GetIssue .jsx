@@ -1,35 +1,46 @@
-import { useLocation, useParams, useNavigate } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import formatDate from "../Utils/formatDate";
 import { assets } from "../assets/assets";
 import { priorityStyles, statusStyles } from "../Utils/Themes";
 import { FiArrowLeft } from "react-icons/fi";
-import { useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import UpdateIssue from "../components/UpdateIssue";
+import axios from "axios";
+import { AppContext } from "../context/AppContext";
 
 const GetIssue = () => {
-  const { state } = useLocation(); // contains issue
+  const { backendUrl, token } = useContext(AppContext)
   const { id } = useParams();
   const navigate = useNavigate();
+  const [issue, setIssue] = useState(null);
+  const [openUpdateIssue, setOpenUpdateIssue] = useState(false)
+  const [loading, setLoading] = useState(true);
 
-  // If user opens page directly, handle missing state
-  const issue = state?.issue;
-  
-  const [openUpdateIssue, setOpenUpdateIssue] = useState(false);
+  // fetch isseu issue by id
+  const fetchIssue = async () => {
+    try {
+      const { data } = await axios.get(`${backendUrl}/api/issue/get-issues/${id}`, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
 
-  if (!issue) {
-    return (
-      <div className="p-6">
-        <h2 className="text-xl font-bold">Issue not found</h2>
-        <button
-          onClick={() => navigate("/")}
-          className="mt-4 px-4 py-2 bg-blue-500 text-white rounded-md"
-        >
-          Go Back
-        </button>
-      </div>
-    );
+      if (data.success) {
+        setIssue(data.issue);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+    finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchIssue();
+  }, [id]);
+
+  if (loading) {
+    return <div className="p-6">Loading issue...</div>;
   }
-
   return (
     <>
       <div className="px-1 py-6 sm:p-6 min-h-screen">
@@ -113,6 +124,7 @@ const GetIssue = () => {
               <UpdateIssue
                 issue={issue}
                 onClose={() => setOpenUpdateIssue(false)}
+                refreshIssue={fetchIssue}
               />
             </div>
           )}

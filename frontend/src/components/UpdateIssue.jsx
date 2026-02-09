@@ -8,7 +8,7 @@ import { toast } from "react-toastify";
 const priorities = ["Low", "Medium", "High"];
 const status = ["Open", "Inprogress", "Resolved", "Closed"];
 
-const UpdateIssue = ({ issue, onClose }) => {
+const UpdateIssue = ({ issue, onClose, refreshIssue}) => {
   const { token, backendUrl, fetchAllIssues } = useContext(AppContext);
 
   const [formData, setFormData] = useState({
@@ -33,7 +33,8 @@ const UpdateIssue = ({ issue, onClose }) => {
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
-
+  
+  // handle Issue Update
   const updateIsuue = async (e) => {
     e.preventDefault();
     try {
@@ -47,6 +48,7 @@ const UpdateIssue = ({ issue, onClose }) => {
 
       if (data.success) {
         toast.success("Issue updated successfully!");
+        refreshIssue();
         fetchAllIssues();
         onClose();
       } else {
