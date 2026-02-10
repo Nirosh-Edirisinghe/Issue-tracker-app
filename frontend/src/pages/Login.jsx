@@ -25,7 +25,7 @@ const Login = () => {
       if (state === 'signup') {
         console.log(state);
 
-        const { data } = await axios.post(backendUrl + '/api/user/register', { name, password, email })
+        const { data } = await axios.post(backendUrl + '/api/auth/register', { name, password, email })
 
         if (data.success) {
           login(data.token)
@@ -38,7 +38,7 @@ const Login = () => {
       } else {
         console.log(state);
 
-        const { data } = await axios.post(backendUrl + '/api/user/login', { email, password })
+        const { data } = await axios.post(backendUrl + '/api/auth/login', { email, password })
 
         if (data.success) {
           login(data.token)

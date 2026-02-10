@@ -2,8 +2,9 @@ import express from 'express'
 import cors from 'cors'
 import 'dotenv/config'
 import connectDb from './config/db.js';
-import userRouter from './routes/authRoutes.js';
 import issueRouter from './routes/issueRoutes.js';
+import authRouter from './routes/authRoutes.js';
+import userRouter from './routes/userRoutes.js';
 
 // app config
 const app = express();
@@ -16,8 +17,9 @@ app.use(express.json())
 app.use(cors())
 
 // api endpoint
-app.use('/api/user',userRouter)
+app.use('/api/auth',authRouter)
 app.use('/api/issue',issueRouter)
+app.use('/api/user',userRouter )
 
 app.get('/',(req,res)=>{
   res.send("Api working great")

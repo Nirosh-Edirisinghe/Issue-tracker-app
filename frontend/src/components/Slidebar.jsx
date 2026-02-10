@@ -1,6 +1,6 @@
 import React from 'react'
 import { NavLink } from "react-router-dom";
-import { LayoutDashboard, AlertCircle, X } from "lucide-react";
+import { LayoutDashboard, AlertCircle, X, User } from "lucide-react";
 
 const Slidebar = ({ sidebarOpen, setSidebarOpen }) => {
 
@@ -51,6 +51,15 @@ const Slidebar = ({ sidebarOpen, setSidebarOpen }) => {
           >
             <AlertCircle size={18} />
             Issues
+          </NavLink>
+
+          <NavLink
+            to="/profile"
+            className={linkClass}
+            onClick={() => setSidebarOpen(false)}
+          >
+            <User size={18} />
+            Profile
           </NavLink>
         </nav>
       </aside>

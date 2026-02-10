@@ -4,10 +4,12 @@ import logo from './logo.png'
 import logo1 from './logo1.png'
 import logo2 from './logo2.png'
 import profile from './profile.jpg'
+import profile_placeholder from './profile_placeholder.png'
+import upload_icon from './upload_icon.png'
 
 
 export const assets = {
- loginImg,logo,logo1,logo2,profile
+ loginImg,logo,logo1,logo2,profile,profile_placeholder,upload_icon
 }
 
 export const issues = [

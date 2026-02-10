@@ -7,6 +7,7 @@ import Dashboard from './pages/Dashboard';
 import AppLayout from './layouts/AppLayout';
 import Issues from './pages/Issues ';
 import GetIssue from './pages/GetIssue ';
+import Profile from './pages/Profile';
 
 function App() {
 
@@ -28,6 +29,7 @@ function App() {
           <Route path="/" element={<Dashboard />} />
           <Route path="/issues" element={<Issues />} />
           <Route path="/issue/:id" element={<GetIssue />} />
+          <Route path="/profile" element={<Profile/>} />
         </Route>
       </Routes>
     </>
