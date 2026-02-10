@@ -99,7 +99,7 @@ const Profile = () => {
           {isEdit ? (
             <input type="text" value={userData.name}
               onChange={(e) => setUserData(prev => ({ ...prev, name: e.target.value }))}
-              className='bg-gray-50 text-2xl font-medium rounded p-1'
+              className='bg-gray-200 text-2xl font-medium focus:outline-none focus:ring-1 focus:ring-primary/60 rounded p-1'
             />
           ) : (
             <p className='font-medium text-2xl text-gray-800'>{user?.name}</p>
@@ -119,7 +119,7 @@ const Profile = () => {
               {isEdit ? (
                 <input type="text" value={userData.phone}
                   onChange={(e) => setUserData(prev => ({ ...prev, phone: e.target.value }))}
-                  className='bg-gray-50 w-full rounded p-1'
+                  className='bg-gray-200 w-full focus:outline-none focus:ring-1 focus:ring-primary/60 rounded p-1'
                 />
               ) : (
                 <p className='text-gray-600'>{user?.phone}</p>
@@ -130,7 +130,7 @@ const Profile = () => {
               {isEdit ? (
                 <input type="text" value={userData.position}
                   onChange={(e) => setUserData(prev => ({ ...prev, position: e.target.value }))}
-                  className='bg-gray-50 w-full rounded p-1'
+                  className='bg-gray-200 w-full focus:outline-none focus:ring-1 focus:ring-primary/60 rounded p-1'
                 />
               ) : (
                 <p className='text-gray-600'>{user?.position}</p>
@@ -144,14 +144,14 @@ const Profile = () => {
             {isEdit ? (
               <button
                 onClick={updateUserProfile}
-                className='px-6 py-2 rounded-full border border-blue-500 hover:bg-blue-500 hover:text-white transition'
+                className='px-8 py-1 rounded-full border text-primary border-primary hover:bg-primary hover:text-white transition cursor-pointer'
               >
                 Save
               </button>
             ) : (
               <button
                 onClick={() => setIsEdit(true)}
-                className='px-8 py-1 rounded-full border border-blue-500 hover:bg-blue-500 hover:text-white transition'
+                className='px-8 py-1 rounded-full border text-primary border-primary hover:bg-primary hover:text-white transition cursor-pointer'
               >
                 Edit
               </button>
