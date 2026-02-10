@@ -53,6 +53,7 @@ const AddIssue = ({ onClose }) => {
           priority: "Medium",
           description: "",
         })
+         onClose();
         fetchAllIssues();
 
       } else {

@@ -90,6 +90,7 @@ const Dashboard = () => {
                 <tr>
                   <th className="text-left px-5 py-3">Issue</th>
                   <th className="text-left px-5 py-3">Status</th>
+                  <th className="text-left px-5 py-3">Priority</th>
                   <th className="text-left px-5 py-3">Created At</th>
                   <th className="text-left px-5 py-3">From</th>
                 </tr>
@@ -105,9 +106,15 @@ const Dashboard = () => {
                     </td>
 
                     <td className="px-5 py-4 whitespace-nowrap">
-                      <span className={`px-3 py-1 rounded-md text-xs font-semibold ${statusStyles[issue.status]}`}
+                      <span className={`px-3 py-1 rounded-xl text-xs font-semibold ${statusStyles[issue.status]}`}
                       >
                         {issue.status.replace("_", " ")}
+                      </span>
+                    </td>
+
+                    <td className="px-5 py-4 whitespace-nowrap">
+                      <span className="px-3 py-1 border border-gray-570 rounded-full text-xs font-semibold  text-gray-700 capitalize">
+                        {issue.priority}
                       </span>
                     </td>
 

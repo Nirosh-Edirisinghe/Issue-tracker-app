@@ -71,7 +71,7 @@ const GetIssue = () => {
               >
                 {issue.status.replace("_", " ")}
               </span> */}
-              <IssueStatusDropdown initialStatus={issue.status} issueId={issue.id}/>
+              <IssueStatusDropdown initialStatus={issue.status} issueId={issue.id} />
             </div>
 
             {/* Divider */}
@@ -79,10 +79,16 @@ const GetIssue = () => {
 
             {/* Description */}
             <div>
-              <h2 className="font-semibold text-gray-700 mb-1">
-                Description
-              </h2>
-              <p className="text-slate-600 text-sm">
+              <div className="flex items-center justify-between mb-2">
+                <h2 className="font-semibold text-gray-700 mb-1">
+                  Description
+                </h2>
+                <span className="px-4 py-1 border border-gray-500 rounded-full text-xs font-semibold text-gray-700 capitalize">
+                  {issue.priority}
+                </span>
+              </div>
+
+              <p className="text-slate-600 text-sm leading-relaxed">
                 {issue.description || "No description provided"}
               </p>
             </div>

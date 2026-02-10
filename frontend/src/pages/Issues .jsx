@@ -142,7 +142,7 @@ const Issues = () => {
                       </td>
 
                       <td className="px-5 py-4 whitespace-nowrap">
-                        <span className={`px-3 py-1 rounded-md text-xs font-semibold ${statusStyles[issue.status]}`}
+                        <span className={`px-3 py-1 rounded-xl text-xs font-semibold ${statusStyles[issue.status]}`}
                         >
                           {issue.status.replace("_", " ")}
                         </span>
