@@ -8,14 +8,21 @@ import UpdateIssue from "../components/UpdateIssue";
 import axios from "axios";
 import { AppContext } from "../context/AppContext";
 import IssueStatusDropdown from "../components/IssueStatusDropdown";
+import WarningModal from "../components/WarningModal";
+import ConfirmationModal from "../components/ConfirmationModal";
 
 const GetIssue = () => {
-  const { backendUrl, token } = useContext(AppContext)
+  const { backendUrl, token, fetchAllIssues } = useContext(AppContext)
   const { id } = useParams();
   const navigate = useNavigate();
+
   const [issue, setIssue] = useState(null);
   const [openUpdateIssue, setOpenUpdateIssue] = useState(false)
   const [loading, setLoading] = useState(true);
+  const [showWarning, setShowWarning] = useState(false);
+  const [warningMessage, setWarningMessage] = useState("");
+  const [showConfirmDelete, setShowConfirmDelete] = useState(false);
+
 
   // fetch isseu issue by id
   const fetchIssue = async () => {
@@ -34,6 +41,36 @@ const GetIssue = () => {
       setLoading(false);
     }
   };
+
+  const handleDeleteIssue = async () => {
+    try {
+      const { data } = await axios.delete(
+        `${backendUrl}/api/issue/delete-issue/${id}`,
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        }
+      );
+      setShowConfirmDelete(false);
+
+      if (data.success) {
+        fetchAllIssues()
+        navigate(-1);
+      } else {
+        setWarningMessage(data.message);
+        setShowWarning(true);
+      }
+    } catch (error) {
+      setShowConfirmDelete(false);
+      console.error(error);
+      if (error.response?.status === 403) {
+        setWarningMessage("You are not allowed to delete this issue");
+        setShowWarning(true);
+      } else {
+        toast.error("Delete failed");
+      }
+    }
+  };
+
 
   useEffect(() => {
     fetchIssue();
@@ -121,7 +158,7 @@ const GetIssue = () => {
             >
               Edit Issue
             </button>
-            <button className="px-4 py-2 bg-primary/70 text-white rounded-md">
+            <button onClick={() => setShowConfirmDelete(true)} className="px-4 py-2 bg-primary/70 text-white rounded-md">
               Delete Issue
             </button>
           </div>
@@ -135,6 +172,22 @@ const GetIssue = () => {
                 refreshIssue={fetchIssue}
               />
             </div>
+          )}
+
+          {showWarning && (
+            <WarningModal
+              message={warningMessage}
+              onClose={() => setShowWarning(false)}
+            />
+          )}
+
+          {showConfirmDelete && (
+            <ConfirmationModal
+              type="delete"
+              message="This action will permanently delete the issue. Do you want to continue?"
+              onConfirm={handleDeleteIssue}
+              onCancel={() => setShowConfirmDelete(false)}
+            />
           )}
         </div>
 

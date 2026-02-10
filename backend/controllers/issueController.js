@@ -186,6 +186,43 @@ const updateIssueStatus = async (req, res) => {
   }
 };
 
+// delete issue
+const deleteIssue = async (req, res) => {
+  try {
+    const issueId = req.params.id;
+    const loggedUserId = req.user.id; 
 
+    const issue = await IssueModel.findById(issueId);
 
-export { createIssue, getAllIssues, updateIssue, getSingleIssue, updateIssueStatus }
+    if (!issue) {
+      return res.status(404).json({
+        success: false,
+        message: "Issue not found",
+      });
+    }
+
+    // anly access delete issue fro create user
+    if (issue.userId.toString() !== loggedUserId) {
+      return res.status(403).json({
+        success: false,
+        message: "You are not allowed to delete this issue",
+      });
+    }
+
+    await IssueModel.findByIdAndDelete(issueId);
+
+    res.status(200).json({
+      success: true,
+      message: "Issue deleted successfully",
+    });
+
+  } catch (error) {
+    console.error("Delete issue error:", error);
+    res.status(500).json({
+      success: false,
+      message: "Server error",
+    });
+  }
+};
+
+export { createIssue, getAllIssues, updateIssue, getSingleIssue, updateIssueStatus, deleteIssue }
