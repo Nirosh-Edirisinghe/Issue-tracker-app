@@ -74,7 +74,7 @@ const GetIssue = () => {
 
   useEffect(() => {
     fetchIssue();
-  }, [id]);
+  }, [id, token, fetchAllIssues]);
 
   if (loading) {
     return <div className="p-6">Loading issue...</div>;
@@ -135,7 +135,7 @@ const GetIssue = () => {
 
               <div className="flex items-center gap-3">
                 <img
-                  src={assets.profile}
+                  src={issue.userData.image || assets.profile}
                   alt="user"
                   className="w-10 h-10 rounded-full"
                 />

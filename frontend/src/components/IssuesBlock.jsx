@@ -33,7 +33,7 @@ const IssuesBlock = ({ issue, statusStyles, formatDate }) => {
         <div className="flex items-center justify-between mt-3">
           <div className="flex items-center gap-3">
             <img
-              src={assets.profile}
+              src={issue.userData.image || assets.profile}
               alt="user"
               className="w-8 h-8 rounded-full"
             />

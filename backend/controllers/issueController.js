@@ -40,7 +40,7 @@ const createIssue = async (req, res) => {
 const getAllIssues = async (req, res) => {
   try {
     const issues = await IssueModel.find()
-      .populate("userId", "name email") // fetch user info
+      .populate("userId", "name email image phone position") // fetch user info
       .sort({ createdAt: -1 });
 
     const formattedIssues = issues.map(issue => ({
@@ -55,6 +55,9 @@ const getAllIssues = async (req, res) => {
         id: issue.userId?._id,
         name: issue.userId?.name,
         email: issue.userId?.email,
+        phone: issue.userId?.phone,
+        image: issue.userId?.image,
+        position: issue.userId?.position,
       },
     }));
 
@@ -117,7 +120,7 @@ const getSingleIssue = async (req, res) => {
     const { id } = req.params;
 
     const issue = await IssueModel.findById(id)
-      .populate("userId", "name email");
+      .populate("userId", "name email image phone position");
 
     if (!issue) {
       return res.json({
@@ -138,6 +141,9 @@ const getSingleIssue = async (req, res) => {
         id: issue.userId?._id,
         name: issue.userId?.name,
         email: issue.userId?.email,
+        phone: issue.userId?.phone,
+        image: issue.userId?.image,
+        position: issue.userId?.position,
       },
     };
 
