@@ -23,7 +23,7 @@ const createIssue = async (req, res) => {
 
     res.status(201).json({
       success: true,
-      message: "Issue created successfully",
+      message: "Issue create successfully",
       issue,
     });
 
@@ -31,7 +31,7 @@ const createIssue = async (req, res) => {
     console.error(error);
     res.json({
       success: false,
-      message: "Server error",
+      message: "Issue create Failed",
     });
   }
 };
@@ -109,7 +109,7 @@ const updateIssue = async (req, res) => {
     console.error(error);
     res.json({
       success: false,
-      message: "Server error",
+      message: "Issue update Failed",
     });
   }
 };
@@ -187,7 +187,7 @@ const updateIssueStatus = async (req, res) => {
     console.error("Update status error:", error);
     res.status(500).json({
       success: false,
-      message: "Server error",
+      message: "Status update failed",
     });
   }
 };

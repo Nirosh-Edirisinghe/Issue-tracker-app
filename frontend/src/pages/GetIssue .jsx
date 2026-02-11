@@ -154,11 +154,11 @@ const GetIssue = () => {
           <div className="w-full sm:w-1/4 flex flex-col gap-3">
             <button
               onClick={() => setOpenUpdateIssue(true)}
-              className="px-4 py-2 bg-primary text-white rounded-md"
+              className="px-4 py-2 bg-primary text-white rounded-md cursor-pointer"
             >
               Edit Issue
             </button>
-            <button onClick={() => setShowConfirmDelete(true)} className="px-4 py-2 bg-primary/70 text-white rounded-md">
+            <button onClick={() => setShowConfirmDelete(true)} className="px-4 py-2 bg-primary/70 text-white rounded-md cursor-pointer">
               Delete Issue
             </button>
           </div>

@@ -4,6 +4,7 @@ import { useContext } from 'react';
 import { AppContext } from '../context/AppContext';
 import { useEffect } from 'react';
 import axios from 'axios';
+import { toast } from 'react-toastify';
 
 const Profile = () => {
 
@@ -24,6 +25,13 @@ const Profile = () => {
   // handle user data update
   const updateUserProfile = async () => {
     try {
+      const phoneRegex = /^[0-9]{10}$/;
+      
+      if (!phoneRegex.test(userData.phone)) {
+        toast.error("Phone number should contain exactly 10 numbers");
+        return;
+      }
+
       const formData = new FormData();
       formData.append("name", userData.name);
       formData.append("phone", userData.phone);
@@ -42,6 +50,7 @@ const Profile = () => {
       if (data.success) {
         fetchUserData();
         setIsEdit(false);
+        toast.success('Profile Update Successful')
       }
 
     } catch (error) {
@@ -66,7 +75,7 @@ const Profile = () => {
       <div className="px-1 py-6 sm:p-6 min-h-screen">
 
         {/* Tittle */}
-        <h1 className="text-2xl text-slate-800 font-bold mb-8">My Profile</h1>
+        <h1 className="text-3xl text-slate-700 font-bold mb-8">My Profile</h1>
 
         <div className='w-full max-w-md flex flex-col gap-4 text-sm py-4 px-6 bg-white rounded-lg shadow-md'>
 
@@ -85,14 +94,14 @@ const Profile = () => {
                 onChange={(e) => {
                   const file = e.target.files[0];
                   if (file) {
-                    setSelectedImage(file);                    
-                    setPreviewImage(URL.createObjectURL(file)); 
+                    setSelectedImage(file);
+                    setPreviewImage(URL.createObjectURL(file));
                   }
                 }}
               />
             </label>
           ) : (
-            <img className="w-36 h-36 rounded object-cover" src={userData.image} alt="Profile"/>
+            <img className="w-36 h-36 rounded object-cover" src={userData.image} alt="Profile" />
           )}
 
           {/* Name */}

@@ -22,15 +22,15 @@ const TeamMembers = () => {
   return (
     <div className="px-1 py-6 sm:p-6 min-h-screen">
 
-      <h2 className="text-2xl text-slate-900 font-bold mb-6">Team Members</h2>
+      <h2 className="text-3xl text-slate-700 font-bold mb-6">Team Members</h2>
 
       <div className=" bg-white rounded-lg shadow-sm mt-4">
         <div className='flex justify-start mb-2 p-4'>
-          <p className="text-gray-700 text-md font-semibold">Monitor team performance and task progress</p>
+          <p className="text-gray-600 text-md font-md">Monitor team performance and task progress</p>
         </div>
 
         <div className="hidden md:block bg-white rounded-lg shadow-sm">
-          <div className="max-h-150 overflow-y-auto">
+          <div className="max-h-150 overflow-y-auto custom-scroll">
             <table className="min-w-full">
               <thead className="bg-gray-100 text-gray-600 sticky top-0 z-10">
                 <tr>

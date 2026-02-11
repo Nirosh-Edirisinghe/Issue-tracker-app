@@ -67,7 +67,7 @@ const IssueStatusDropdown = ({ initialStatus, issueId }) => {
         {/* button section */}
         <button
           onClick={() => setStatusOpen(!statusOpen)}
-          className={`w-full flex items-center justify-between gap-2 px-3 py-1 rounded-md text-sm font-medium ${statusStyles[status]}`}
+          className={`w-full flex items-center justify-between gap-2 px-3 py-1 rounded-md text-sm font-medium cursor-pointer ${statusStyles[status]}`}
         >
           {status.replace("_", " ")}
           <ChevronDown size={18} className={`transition-transform ${statusOpen ? "rotate-180" : ""} ${statusStyles[status].split(" ").find(cls => cls.startsWith("text-"))}`}
@@ -81,7 +81,7 @@ const IssueStatusDropdown = ({ initialStatus, issueId }) => {
               <button
                 key={item.value}
                 onClick={() => handleStatusUpdate(item.value)}
-                className={`w-full text-left px-3 py-2 text-sm hover:bg-blue-50 ${status === item.value ? "hover:bg-blue-50 font-semibold" : ""}`}
+                className={`w-full text-left px-3 py-2 text-sm hover:bg-blue-50 cursor-pointer ${status === item.value ? "hover:bg-blue-50 font-semibold" : ""}`}
               >
                 {item.label}
               </button>

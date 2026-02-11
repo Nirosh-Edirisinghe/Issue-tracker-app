@@ -3,7 +3,7 @@ import React from 'react'
 const TeamMemberBlock = ({ users }) => {
   return (
     <>
-      <div className="md:hidden space-y-4 max-h-180 overflow-y-auto">
+      <div className="md:hidden space-y-4 max-h-180 overflow-y-auto custom-scroll">
         {users.map((user) => (
           <div key={user.id} className="rounded-lg p-4 shadow-lg bg-white space-y-3"
           >
@@ -55,7 +55,7 @@ const TeamMemberBlock = ({ users }) => {
                 </span>
                 <span className="font-medium">{user.issues.closed}</span>
               </div>
-              
+
             </div>
 
           </div>

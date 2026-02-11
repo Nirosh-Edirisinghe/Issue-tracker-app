@@ -33,7 +33,7 @@ const Dashboard = () => {
       <div className="px-1 py-6 sm:p-6 min-h-screen">
         {/* Title */}
         <div>
-          <h1 className="text-2xl text-slate-900 font-bold mb-6">Dashboard</h1>
+          <h1 className="text-3xl text-slate-700 font-bold mb-6">Dashboard</h1>
         </div>
 
         {/* Stats Boxes */}
@@ -92,7 +92,7 @@ const Dashboard = () => {
                   <th className="text-left px-5 py-3">Issue</th>
                   <th className="text-left px-5 py-3">Status</th>
                   <th className="text-left px-5 py-3">Priority</th>
-                  <th className="text-left px-5 py-3">Created At</th>
+                  <th className="text-left px-5 py-3">Created Date</th>
                   <th className="text-left px-5 py-3">From</th>
                 </tr>
               </thead>

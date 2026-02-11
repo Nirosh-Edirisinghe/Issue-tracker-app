@@ -89,7 +89,7 @@ const Issues = () => {
       <div className="px-1 py-6 sm:p-6 min-h-screen">
         {/* Header section */}
         <div className='flex flex-col sm:flex-row sm:items-center sm:justify-between'>
-          <h1 className="text-2xl text-slate-900 font-bold mb-6">Issues</h1>
+          <h1 className="text-3xl text-slate-700 font-bold mb-6">Issues</h1>
 
           <div className="relative w-full sm:w-64">
             <FiSearch className="absolute left-3 top-2.5 w-4 h-4 text-gray-400" />
@@ -107,7 +107,7 @@ const Issues = () => {
         {/* issues list */}
         <div className=" bg-white rounded-lg shadow-sm mt-4">
 
-          <div className='flex justify-between p-5'>
+          <div className='flex flex-col sm:flex-row justify-between p-5'>
 
             {/* Filter by priority */}
             <div ref={dropdownRef} className="relative w-30 sm:w-44">
@@ -140,15 +140,15 @@ const Issues = () => {
               )}
             </div>
 
-            <div className="flex gap-3">
+            <div className="flex gap-3 mt-4 sm:mt-0">
               <button
                 onClick={handleExport}
-                className="flex items-center gap-2 px-6 py-2 text-sm bg-primary text-white font-semibold rounded-md"
+                className="flex items-center gap-2 px-6 py-2 text-sm bg-primary text-white font-semibold rounded-md cursor-pointer"
               >
                 <Download size={16} />
                 Export 
               </button>
-              <button onClick={() => setOpenAddIssue(true)} className=' px-6 py-2 text-sm bg-primary text-white font-semibold rounded-md'>+ Add Issues</button>
+              <button onClick={() => setOpenAddIssue(true)} className=' px-6 py-2 text-sm bg-primary text-white font-semibold rounded-md cursor-pointer'>+ Add Issues</button>
             </div>
 
           </div>
@@ -175,7 +175,7 @@ const Issues = () => {
                     <tr key={issue.id} className=" hover:bg-gray-50"
                       onClick={() => navigate(`/issue/${issue.id}`)}
                     >
-                      <td className="px-5 py-4 font-medium text-gray-700 whitespace-nowrap">
+                      <td className="pl-4 py-4 font-medium text-gray-700 whitespace-nowrap">
                         {issue.title}
                       </td>
 

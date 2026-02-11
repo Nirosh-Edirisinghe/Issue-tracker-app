@@ -18,9 +18,34 @@ const Login = () => {
   const [email, setEmail] = useState('')
   const [showPassword, setShowPassword] = useState(false);
 
+  const validateForm = () => {
+    // Email validation 
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+    if (!emailRegex.test(email)) {
+      toast.error("Please enter a valid email address");
+      return false;
+    }
+    // password validation
+    if (password.length < 6) {
+      toast.error("Password must be at least 6 characters");
+      return false;
+    }
+    // name validation
+    if (state === "signup" && name.trim().length < 3) {
+      toast.error("Name must be at least 3 characters");
+      return false;
+    }
+
+    return true;
+  };
+
+
   // handle User register and login
   const onsubmitHandle = async (event) => {
     event.preventDefault()
+    if (!validateForm()) return;
+    
     try {
       if (state === 'signup') {
         console.log(state);
