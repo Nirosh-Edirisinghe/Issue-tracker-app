@@ -72,7 +72,7 @@ const updateUserProfile = async (req, res) => {
     res.status(500).json({
       success: false,
       message: "Error while updating profile",
-      error: error.message, 
+      error: error.message,
     });
   }
 };
@@ -94,8 +94,12 @@ const getTeamMembers = async (req, res) => {
 
         // Initialize counts object
         const countsObj = { open: 0, inprogress: 0, resolved: 0, closed: 0 };
+
         issueCounts.forEach(ic => {
-          countsObj[ic._id.toLowerCase()] = ic.count;
+          const status = ic._id;
+          if (status && countsObj.hasOwnProperty(status.toLowerCase())) {
+            countsObj[status.toLowerCase()] = ic.count;
+          }
         });
 
         return {
@@ -119,4 +123,4 @@ const getTeamMembers = async (req, res) => {
 
 
 
-export { getUserData, updateUserProfile,getTeamMembers}
+export { getUserData, updateUserProfile, getTeamMembers }

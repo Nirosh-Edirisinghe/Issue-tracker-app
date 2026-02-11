@@ -2,16 +2,19 @@ import React, { useEffect, useRef, useState } from 'react'
 import { assets } from '../assets/assets'
 import formatDate from '../Utils/formatDate'
 import { FiChevronDown, FiSearch } from "react-icons/fi";
+import { Download } from "lucide-react";
 import IssuesBlock from '../components/IssuesBlock';
 import { useNavigate } from "react-router-dom";
 import { statusStyles } from '../Utils/Themes';
 import AddIssue from '../components/AddIssue';
 import { useContext } from 'react';
 import { AppContext } from '../context/AppContext';
+import axios from 'axios';
+import { toast } from 'react-toastify';
 
 const Issues = () => {
 
-  const { issues, loading } = useContext(AppContext);
+  const { issues, loading, backendUrl, token } = useContext(AppContext);
 
   const [priority, setPriority] = useState("All");
   const [search, setSearch] = useState("");
@@ -57,13 +60,36 @@ const Issues = () => {
     };
   }, []);
 
+// dowamload issue list in CSV fromat
+ const handleExport = async () => {
+  try {
+    const response = await axios.get(`${backendUrl}/api/issue/export`,
+      {
+        headers: { Authorization: `Bearer ${token}` },
+        responseType: "blob",
+      }
+    );
+    const url = window.URL.createObjectURL(new Blob([response.data]));
+    const link = document.createElement("a");
+    link.href = url;
+    link.setAttribute("download", "issues.csv");
+
+    document.body.appendChild(link);
+    link.click();
+    link.remove();
+
+  } catch (error) {
+    console.error("CSV Export failed:", error);
+    toast.error(error.message)
+  }
+};
 
   return (
     <>
       <div className="px-1 py-6 sm:p-6 min-h-screen">
         {/* Header section */}
         <div className='flex flex-col sm:flex-row sm:items-center sm:justify-between'>
-          <h1 className="text-2xl text-slate-900 font-bold mb-6">Issues</h1>
+          <h1 className="text-3xl text-slate-700 font-bold mb-6">Issues</h1>
 
           <div className="relative w-full sm:w-64">
             <FiSearch className="absolute left-3 top-2.5 w-4 h-4 text-gray-400" />
@@ -81,7 +107,7 @@ const Issues = () => {
         {/* issues list */}
         <div className=" bg-white rounded-lg shadow-sm mt-4">
 
-          <div className='flex justify-between p-5'>
+          <div className='flex flex-col sm:flex-row justify-between p-5'>
 
             {/* Filter by priority */}
             <div ref={dropdownRef} className="relative w-30 sm:w-44">
@@ -114,12 +140,24 @@ const Issues = () => {
               )}
             </div>
 
-            <button onClick={() => setOpenAddIssue(true)} className=' px-3 py-2 text-sm bg-primary text-white font-semibold rounded-md'>+ Add Issues</button>
+            <div className="flex gap-3 mt-4 sm:mt-0">
+              <button
+                onClick={handleExport}
+                className="flex items-center gap-2 px-6 py-2 text-sm bg-primary text-white font-semibold rounded-md cursor-pointer"
+              >
+                <Download size={16} />
+                Export 
+              </button>
+              <button onClick={() => setOpenAddIssue(true)} className=' px-6 py-2 text-sm bg-primary text-white font-semibold rounded-md cursor-pointer'>+ Add Issues</button>
+            </div>
+
           </div>
+
+
 
           {/* issue list in desktop view */}
           <div className="hidden md:block bg-white rounded-lg shadow-sm">
-            <div className="max-h-105 overflow-y-auto">
+            <div className="max-h-105 overflow-y-auto custom-scroll">
               <table className="min-w-full text-sm">
                 {/* Sticky Header */}
                 <thead className="bg-gray-100 text-gray-600 sticky top-0 z-10">
@@ -127,7 +165,7 @@ const Issues = () => {
                     <th className="text-left px-5 py-3">Issue</th>
                     <th className="text-left px-5 py-3">Status</th>
                     <th className="text-left px-5 py-3">Priority</th>
-                    <th className="text-left px-5 py-3">Created At</th>
+                    <th className="text-left px-5 py-3">Created Date</th>
                     <th className="text-left px-5 py-3">From</th>
                   </tr>
                 </thead>
@@ -137,7 +175,7 @@ const Issues = () => {
                     <tr key={issue.id} className=" hover:bg-gray-50"
                       onClick={() => navigate(`/issue/${issue.id}`)}
                     >
-                      <td className="px-5 py-4 font-medium text-gray-700 whitespace-nowrap">
+                      <td className="pl-4 py-4 font-medium text-gray-700 whitespace-nowrap">
                         {issue.title}
                       </td>
 
@@ -174,7 +212,7 @@ const Issues = () => {
           </div>
 
           {/* issue list in mobile view */}
-          <div className="block md:hidden max-h-130 overflow-y-auto space-y-4 px-4 pb-4">
+          <div className="block md:hidden max-h-130 overflow-y-auto space-y-4 px-4 pb-4 custom-scroll">
             {filteredIssues.map((issue) => (
               <IssuesBlock
                 key={issue.id}

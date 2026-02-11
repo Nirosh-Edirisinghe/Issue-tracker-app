@@ -6,14 +6,12 @@ import axios from "axios";
 import { toast } from "react-toastify";
 
 const priorities = ["Low", "Medium", "High"];
-const status = ["Open", "Inprogress", "Resolved", "Closed"];
 
 const UpdateIssue = ({ issue, onClose, refreshIssue}) => {
   const { token, backendUrl, fetchAllIssues } = useContext(AppContext);
 
   const [formData, setFormData] = useState({
     title: "",
-    status: "Open",
     priority: "Medium",
     description: "",
   });
@@ -23,7 +21,6 @@ const UpdateIssue = ({ issue, onClose, refreshIssue}) => {
     if (issue) {
       setFormData({
         title: issue.title || "",
-        status: issue.status || "Open",
         priority: issue.priority || "Medium",
         description: issue.description || "",
       });
@@ -86,42 +83,6 @@ const UpdateIssue = ({ issue, onClose, refreshIssue}) => {
             className="w-full border border-gray-300 focus:outline-none focus:ring-1 focus:ring-primary/60 rounded-md px-3 py-2 text-slate-600"
             required
           />
-        </div>
-
-        {/* Status */}
-        <div>
-          <label className="block font-medium mb-1 text-gray-800">Status</label>
-          <Listbox
-            value={formData.status}
-            onChange={(value) => setFormData({ ...formData, status: value })}
-          >
-            {({ open }) => (
-              <div className="relative">
-                <Listbox.Button className="w-full border border-gray-300 focus:outline-none focus:ring-1 focus:ring-primary/60 rounded-md px-3 py-2 text-left flex items-center justify-between text-slate-600">
-                  <span className="capitalize">{formData.status}</span>
-                  <ChevronDown
-                    size={18}
-                    className={`stroke-gray-500 transition-transform ${open ? "rotate-180" : ""}`}
-                  />
-                </Listbox.Button>
-
-                <Listbox.Options className="absolute mt-1 w-full border border-gray-300 bg-white shadow-md rounded-md z-10 overflow-hidden">
-                  {status.map((status) => (
-                    <Listbox.Option
-                      key={status}
-                      value={status}
-                      className={({ active }) =>
-                        `cursor-pointer px-3 py-1 capitalize border-b border-gray-100 ${active ? "bg-blue-200 text-gray-600" : "text-gray-700"
-                        }`
-                      }
-                    >
-                      {status}
-                    </Listbox.Option>
-                  ))}
-                </Listbox.Options>
-              </div>
-            )}
-          </Listbox>
         </div>
 
         {/* Priority */}

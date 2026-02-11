@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { Outlet } from "react-router-dom";
 import Slidebar from '../components/Slidebar';
 import { Menu } from "lucide-react";
+import { assets } from '../assets/assets';
 
 const AppLayout = () => {
 
@@ -21,21 +22,26 @@ const AppLayout = () => {
       <div className="flex-1 flex flex-col">
 
         {/* Top bar for mobile screen */}
-        <div className="lg:hidden flex items-center gap-3 bg-white px-4 py-3 shadow">
+        <div className="lg:hidden flex justify-between bg-white pr-4 py-1 shadow">
+          {/* <h1 className="font-semibold text-slate-800">
+            Issue Flow
+          </h1> */}
+          <img
+            src={assets.logo1}
+            alt="Logo"
+            className="h-12 object-contain"
+          />
           <button onClick={() => setSidebarOpen(true)} className="text-slate-700">
             <Menu size={24} />
           </button>
-          <h1 className="font-semibold text-slate-800">
-            Issue Flow
-          </h1>
         </div>
 
         <main className="flex-1 overflow-y-auto p-6">
           <Outlet />
-        </main>      
+        </main>
       </div>
 
-      
+
 
     </div>
   )
