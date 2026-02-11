@@ -196,7 +196,7 @@ const updateIssueStatus = async (req, res) => {
 const deleteIssue = async (req, res) => {
   try {
     const issueId = req.params.id;
-    const loggedUserId = req.user.id; 
+    const loggedUserId = req.user.id;
 
     const issue = await IssueModel.findById(issueId);
 
@@ -231,4 +231,26 @@ const deleteIssue = async (req, res) => {
   }
 };
 
-export { createIssue, getAllIssues, updateIssue, getSingleIssue, updateIssueStatus, deleteIssue }
+// export issue list
+const exportIssues = async (req, res) => {
+  try {
+    const issues = await IssueModel.find().populate("userId", "name");
+
+    let csv = "Title,Status,Priority,Created Date,User\n";
+
+    issues.forEach(issue => {
+      csv += `"${issue.title}","${issue.status}","${issue.priority}","${issue.createdAt}","${issue.userId?.name}"\n`;
+    });
+
+    res.header("Content-Type", "text/csv");
+    res.attachment("issues.csv");
+    res.send(csv);
+
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "CSV Export failed" });
+  }
+};
+
+
+export { createIssue, getAllIssues, updateIssue, getSingleIssue, updateIssueStatus, deleteIssue, exportIssues }
