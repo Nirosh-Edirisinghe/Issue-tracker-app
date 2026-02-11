@@ -102,13 +102,13 @@ const GetIssue = () => {
             {/* Title and Status */}
             <div className="flex items-center justify-between">
               <h1 className="text-xl font-bold text-gray-700">
-                {issue.title}
+                {issue?.title}
               </h1>
               {/* <span className={`px-5 py-1 rounded-md text-xs font-semibold ${statusStyles[issue.status]}`}
               >
                 {issue.status.replace("_", " ")}
               </span> */}
-              <IssueStatusDropdown initialStatus={issue.status} issueId={issue.id} />
+              <IssueStatusDropdown initialStatus={issue?.status} issueId={issue.id} />
             </div>
 
             {/* Divider */}
@@ -121,12 +121,12 @@ const GetIssue = () => {
                   Description
                 </h2>
                 <span className="px-4 py-1 border border-gray-500 rounded-full text-xs font-semibold text-gray-700 capitalize">
-                  {issue.priority}
+                  {issue?.priority}
                 </span>
               </div>
 
               <p className="text-slate-600 text-sm leading-relaxed">
-                {issue.description || "No description provided"}
+                {issue?.description || "No description provided"}
               </p>
             </div>
 
@@ -135,17 +135,17 @@ const GetIssue = () => {
 
               <div className="flex items-center gap-3">
                 <img
-                  src={issue.userData.image || assets.profile}
+                  src={issue?.userData.image || assets.profile}
                   alt="user"
                   className="w-10 h-10 rounded-full"
                 />
                 <span className="text-sm font-medium text-gray-700">
-                  {issue.userData.name}
+                  {issue?.userData.name}
                 </span>
               </div>
 
               <span className="text-sm text-slate-500">
-                {formatDate(issue.createdAt)}
+                {formatDate(issue?.createdAt)}
               </span>
             </div>
           </div>

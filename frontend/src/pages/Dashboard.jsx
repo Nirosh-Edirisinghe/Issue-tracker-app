@@ -8,6 +8,7 @@ import { useContext } from 'react';
 import { AppContext } from '../context/AppContext';
 import { statusStyles } from '../Utils/Themes';
 import { useNavigate } from 'react-router-dom';
+import IssuePieChart from '../components/IssuePieChart';
 
 const Dashboard = () => {
 
@@ -146,7 +147,7 @@ const Dashboard = () => {
                 formatDate={formatDate} />
             ))}
           </div>
-        </div>
+        </div>   
 
       </div>
     </>
