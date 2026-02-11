@@ -1,4 +1,5 @@
 import cloudinary from "../config/cloudinary.js";
+import IssueModel from "../models/IssueModel.js";
 import userModel from "../models/UserModel.js";
 
 const getUserData = async (req, res) => {
@@ -76,4 +77,93 @@ const updateUserProfile = async (req, res) => {
   }
 };
 
-export { getUserData, updateUserProfile }
+// GET /api/team-members
+// const getTeamMembers = async (req, res) => {
+//   try {
+//     // Fetch all users
+//     const users = await userModel.find({});
+
+//     // For each user, count issues by status
+//     const usersWithIssueCounts = await Promise.all(
+//       users.map(async (user) => {
+//         const issueCounts = await Issue.aggregate([
+//           { $match: { userId: user._id } },
+//           { $group: { _id: "$status", count: { $sum: 1 } } }
+//         ]);
+
+//         // Convert counts array to an object {open: x, inprogress: y, ...}
+//         const countsObj = { open: 0, inprogress: 0, closed: 0, resolved: 0 };
+//         issueCounts.forEach(ic => {
+//           countsObj[ic._id.toLowerCase()] = ic.count;
+//         });
+
+//         return {
+//           id: user._id,
+//           name: user.name,
+//           email: user.email,
+//           phone: user.phone,
+//           image: user.image,
+//           issues: countsObj
+//         };
+//       })
+//     );
+
+//     res.json(usersWithIssueCounts);
+//     console.log(usersWithIssueCounts);
+    
+//   } catch (error) {
+//     console.error(error);
+//     res.status(500).json({ message: "Server error" });
+//   }
+// };
+
+const getTeamMembers = async (req, res) => {
+  try {
+    // Fetch all users
+    const users = await userModel.find({});
+    console.log("Fetched users:", users); // Log all users
+
+    const usersWithIssueCounts = await Promise.all(
+      users.map(async (user) => {
+        console.log("\nProcessing user:", user.name, user._id); // Log current user
+
+        const issueCounts = await IssueModel.aggregate([
+          { $match: { userId: user._id } },
+          { $group: { _id: "$status", count: { $sum: 1 } } }
+        ]);
+
+        console.log(`Issue counts for ${user.name}:`, issueCounts); // Log raw counts
+
+        // Initialize counts object
+        const countsObj = { open: 0, inprogress: 0, resolved: 0, closed: 0 };
+        issueCounts.forEach(ic => {
+          countsObj[ic._id.toLowerCase()] = ic.count;
+        });
+
+        console.log(`Mapped counts for ${user.name}:`, countsObj); // Log mapped counts
+
+        return {
+          id: user._id,
+          name: user.name,
+          email: user.email,
+          position: user.position,
+          phone: user.phone,
+          image: user.image,
+          issues: countsObj
+        };
+      })
+    );
+
+    console.log("\nFinal data to return:", usersWithIssueCounts); // Log final response
+
+    res.json(usersWithIssueCounts);
+
+  } catch (error) {
+    console.error("Error in getTeamMembers:", error);
+    res.status(500).json({ message: "Server error" });
+  }
+};
+
+
+
+export { getUserData, updateUserProfile,getTeamMembers}

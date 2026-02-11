@@ -8,6 +8,7 @@ import AppLayout from './layouts/AppLayout';
 import Issues from './pages/Issues ';
 import GetIssue from './pages/GetIssue ';
 import Profile from './pages/Profile';
+import TeamMembers from './pages/TeamMembers ';
 
 function App() {
 
@@ -30,6 +31,7 @@ function App() {
           <Route path="/issues" element={<Issues />} />
           <Route path="/issue/:id" element={<GetIssue />} />
           <Route path="/profile" element={<Profile/>} />
+          <Route path="/members" element={<TeamMembers/>} />
         </Route>
       </Routes>
     </>

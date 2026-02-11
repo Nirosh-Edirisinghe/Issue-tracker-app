@@ -1,6 +1,6 @@
 import React, { useContext, useState } from 'react'
 import { NavLink, useNavigate } from "react-router-dom";
-import { LayoutDashboard, AlertCircle, X, User } from "lucide-react";
+import { LayoutDashboard, AlertCircle, X,Users  } from "lucide-react";
 import { LogOut } from "lucide-react";
 import ConfirmationModal from './ConfirmationModal';
 import { AppContext } from '../context/AppContext';
@@ -69,12 +69,12 @@ const Slidebar = ({ sidebarOpen, setSidebarOpen }) => {
           </NavLink>
 
           <NavLink
-            to="/profile"
+            to="/members"
             className={linkClass}
             onClick={() => setSidebarOpen(false)}
           >
-            <User size={18} />
-            Profile
+            <Users size={18} />
+            Team Members
           </NavLink>
         </nav>
 

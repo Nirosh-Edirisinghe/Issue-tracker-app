@@ -174,7 +174,7 @@ const Issues = () => {
           </div>
 
           {/* issue list in mobile view */}
-          <div className="block md:hidden max-h-105 overflow-y-auto space-y-4 px-4 pb-4">
+          <div className="block md:hidden max-h-130 overflow-y-auto space-y-4 px-4 pb-4">
             {filteredIssues.map((issue) => (
               <IssuesBlock
                 key={issue.id}
