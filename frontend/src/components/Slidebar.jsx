@@ -1,12 +1,27 @@
-import React from 'react'
-import { NavLink } from "react-router-dom";
-import { LayoutDashboard, AlertCircle, X } from "lucide-react";
+import React, { useContext, useState } from 'react'
+import { NavLink, useNavigate } from "react-router-dom";
+import { LayoutDashboard, AlertCircle, X,Users  } from "lucide-react";
+import { LogOut } from "lucide-react";
+import ConfirmationModal from './ConfirmationModal';
+import { AppContext } from '../context/AppContext';
+import SidebarUserMenu from './SidebarUserMenu ';
+
 
 const Slidebar = ({ sidebarOpen, setSidebarOpen }) => {
+
+  const { logout } = useContext(AppContext)
+
+  const navigate = useNavigate()
 
   const linkClass = ({ isActive }) =>
     `flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-medium
      ${isActive ? "bg-blue-600 text-white" : "text-slate-300 hover:bg-slate-800 hover:text-white"}`;
+
+  const handleLogout = () => {
+    logout()
+    navigate("/login", { replace: true });
+  };
+
 
   return (
     <>
@@ -52,7 +67,20 @@ const Slidebar = ({ sidebarOpen, setSidebarOpen }) => {
             <AlertCircle size={18} />
             Issues
           </NavLink>
+
+          <NavLink
+            to="/members"
+            className={linkClass}
+            onClick={() => setSidebarOpen(false)}
+          >
+            <Users size={18} />
+            Team Members
+          </NavLink>
         </nav>
+
+        <SidebarUserMenu/>
+
+
       </aside>
 
     </>

@@ -8,14 +8,21 @@ import UpdateIssue from "../components/UpdateIssue";
 import axios from "axios";
 import { AppContext } from "../context/AppContext";
 import IssueStatusDropdown from "../components/IssueStatusDropdown";
+import WarningModal from "../components/WarningModal";
+import ConfirmationModal from "../components/ConfirmationModal";
 
 const GetIssue = () => {
-  const { backendUrl, token } = useContext(AppContext)
+  const { backendUrl, token, fetchAllIssues } = useContext(AppContext)
   const { id } = useParams();
   const navigate = useNavigate();
+
   const [issue, setIssue] = useState(null);
   const [openUpdateIssue, setOpenUpdateIssue] = useState(false)
   const [loading, setLoading] = useState(true);
+  const [showWarning, setShowWarning] = useState(false);
+  const [warningMessage, setWarningMessage] = useState("");
+  const [showConfirmDelete, setShowConfirmDelete] = useState(false);
+
 
   // fetch isseu issue by id
   const fetchIssue = async () => {
@@ -35,9 +42,39 @@ const GetIssue = () => {
     }
   };
 
+  const handleDeleteIssue = async () => {
+    try {
+      const { data } = await axios.delete(
+        `${backendUrl}/api/issue/delete-issue/${id}`,
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        }
+      );
+      setShowConfirmDelete(false);
+
+      if (data.success) {
+        fetchAllIssues()
+        navigate(-1);
+      } else {
+        setWarningMessage(data.message);
+        setShowWarning(true);
+      }
+    } catch (error) {
+      setShowConfirmDelete(false);
+      console.error(error);
+      if (error.response?.status === 403) {
+        setWarningMessage("You are not allowed to delete this issue");
+        setShowWarning(true);
+      } else {
+        toast.error("Delete failed");
+      }
+    }
+  };
+
+
   useEffect(() => {
     fetchIssue();
-  }, [id]);
+  }, [id, token, fetchAllIssues]);
 
   if (loading) {
     return <div className="p-6">Loading issue...</div>;
@@ -65,13 +102,13 @@ const GetIssue = () => {
             {/* Title and Status */}
             <div className="flex items-center justify-between">
               <h1 className="text-xl font-bold text-gray-700">
-                {issue.title}
+                {issue?.title}
               </h1>
               {/* <span className={`px-5 py-1 rounded-md text-xs font-semibold ${statusStyles[issue.status]}`}
               >
                 {issue.status.replace("_", " ")}
               </span> */}
-              <IssueStatusDropdown initialStatus={issue.status} issueId={issue.id}/>
+              <IssueStatusDropdown initialStatus={issue?.status} issueId={issue.id} />
             </div>
 
             {/* Divider */}
@@ -79,11 +116,17 @@ const GetIssue = () => {
 
             {/* Description */}
             <div>
-              <h2 className="font-semibold text-gray-700 mb-1">
-                Description
-              </h2>
-              <p className="text-slate-600 text-sm">
-                {issue.description || "No description provided"}
+              <div className="flex items-center justify-between mb-2">
+                <h2 className="font-semibold text-gray-700 mb-1">
+                  Description
+                </h2>
+                <span className="px-4 py-1 border border-gray-500 rounded-full text-xs font-semibold text-gray-700 capitalize">
+                  {issue?.priority}
+                </span>
+              </div>
+
+              <p className="text-slate-600 text-sm leading-relaxed">
+                {issue?.description || "No description provided"}
               </p>
             </div>
 
@@ -92,17 +135,17 @@ const GetIssue = () => {
 
               <div className="flex items-center gap-3">
                 <img
-                  src={assets.profile}
+                  src={issue?.userData.image || assets.profile}
                   alt="user"
                   className="w-10 h-10 rounded-full"
                 />
                 <span className="text-sm font-medium text-gray-700">
-                  {issue.userData.name}
+                  {issue?.userData.name}
                 </span>
               </div>
 
               <span className="text-sm text-slate-500">
-                {formatDate(issue.createdAt)}
+                {formatDate(issue?.createdAt)}
               </span>
             </div>
           </div>
@@ -115,7 +158,7 @@ const GetIssue = () => {
             >
               Edit Issue
             </button>
-            <button className="px-4 py-2 bg-primary/70 text-white rounded-md">
+            <button onClick={() => setShowConfirmDelete(true)} className="px-4 py-2 bg-primary/70 text-white rounded-md">
               Delete Issue
             </button>
           </div>
@@ -129,6 +172,22 @@ const GetIssue = () => {
                 refreshIssue={fetchIssue}
               />
             </div>
+          )}
+
+          {showWarning && (
+            <WarningModal
+              message={warningMessage}
+              onClose={() => setShowWarning(false)}
+            />
+          )}
+
+          {showConfirmDelete && (
+            <ConfirmationModal
+              type="delete"
+              message="This action will permanently delete the issue. Do you want to continue?"
+              onConfirm={handleDeleteIssue}
+              onCancel={() => setShowConfirmDelete(false)}
+            />
           )}
         </div>
 

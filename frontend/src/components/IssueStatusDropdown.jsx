@@ -93,6 +93,7 @@ const IssueStatusDropdown = ({ initialStatus, issueId }) => {
       {/* Confirmation Modal */}
       {showConfirm && (
         <ConfirmationModal
+        type="update"
           message={`you want to change status to "${nextStatus}"`}
           onConfirm={async () => {
             setShowConfirm(false);

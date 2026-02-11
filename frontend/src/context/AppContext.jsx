@@ -11,6 +11,7 @@ const AppContextProvider = (props) => {
   const [token, setToken] = useState(localStorage.getItem("Utoken"))
   const [issues, setIssues] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [user, setUser] = useState(null);
 
   const login = (token) => {
     localStorage.setItem("Utoken", token);
@@ -43,12 +44,37 @@ const AppContextProvider = (props) => {
     }
   };
 
+  const fetchUserData = async () => {
+    if (!token) return;
+    try {
+      setLoading(true);
+      const { data } = await axios.get(backendUrl + "/api/user/profile",
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      if (data.success) {
+        setUser(data.user);
+      }
+    } catch (error) {
+      console.log(error.message);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   useEffect(() => {
     fetchAllIssues();
   }, [token]);
 
+  useEffect(() => {
+    fetchUserData();
+  }, [token]);
+
   const value = {
-    token, setToken, login, logout, backendUrl, issues,loading,fetchAllIssues,
+    token, setToken, login, logout, backendUrl, issues, loading, fetchAllIssues,user,fetchUserData
   }
 
   return (

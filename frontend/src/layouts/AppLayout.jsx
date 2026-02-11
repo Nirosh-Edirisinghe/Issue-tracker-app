@@ -6,6 +6,7 @@ import { Menu } from "lucide-react";
 const AppLayout = () => {
 
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [showLogoutConfirm, setShowLogoutConfirm] = useState(false);
 
   return (
     <div className="flex h-screen bg-slate-100 overflow-hidden">
@@ -31,9 +32,11 @@ const AppLayout = () => {
 
         <main className="flex-1 overflow-y-auto p-6">
           <Outlet />
-        </main>
-
+        </main>      
       </div>
+
+      
+
     </div>
   )
 }

@@ -142,7 +142,7 @@ const Issues = () => {
                       </td>
 
                       <td className="px-5 py-4 whitespace-nowrap">
-                        <span className={`px-3 py-1 rounded-md text-xs font-semibold ${statusStyles[issue.status]}`}
+                        <span className={`px-3 py-1 rounded-xl text-xs font-semibold ${statusStyles[issue.status]}`}
                         >
                           {issue.status.replace("_", " ")}
                         </span>
@@ -160,7 +160,7 @@ const Issues = () => {
 
                       <td className="px-5 py-4 whitespace-nowrap">
                         <div className="flex items-center gap-3">
-                          <img src={assets.profile} alt="user" className="w-8 h-8 rounded-full" />
+                          <img src={issue.userData.image || assets.profile} alt="user" className="w-8 h-8 rounded-full" />
                           <span className="text-gray-700">
                             {issue.userData.name}
                           </span>
@@ -174,7 +174,7 @@ const Issues = () => {
           </div>
 
           {/* issue list in mobile view */}
-          <div className="block md:hidden max-h-105 overflow-y-auto space-y-4 px-4 pb-4">
+          <div className="block md:hidden max-h-130 overflow-y-auto space-y-4 px-4 pb-4">
             {filteredIssues.map((issue) => (
               <IssuesBlock
                 key={issue.id}
