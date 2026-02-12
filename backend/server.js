@@ -24,6 +24,5 @@ app.use('/api/user',userRouter )
 app.get('/',(req,res)=>{
   res.send("Api working great")
 })
-
 // app.listen(port, ()=> console.log("server  strted",port))
 export default app
