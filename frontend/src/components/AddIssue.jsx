@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useContext, useState, useEffect, useRef } from "react";
 import { ChevronDown, X } from "lucide-react";
 import { Listbox } from "@headlessui/react";
 import { AppContext } from "../context/AppContext";
@@ -12,6 +12,8 @@ const status = ["Open", "Inprogress"]
 const AddIssue = ({ onClose }) => {
 
   const { token, backendUrl, fetchAllIssues } = useContext(AppContext)
+  const modalRef = useRef();
+
   const [formData, setFormData] = useState({
     title: "",
     status: "Open",
@@ -53,7 +55,7 @@ const AddIssue = ({ onClose }) => {
           priority: "Medium",
           description: "",
         })
-         onClose();
+        onClose();
         fetchAllIssues();
 
       } else {
@@ -65,12 +67,29 @@ const AddIssue = ({ onClose }) => {
     }
   };
 
-  return (
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (
+        modalRef.current &&
+        !modalRef.current.contains(event.target)
+      ) {
+        onClose();
+      }
+    };
 
-    <div className="p-6 w-full max-w-lg mx-4 bg-white rounded-lg shadow">
+    document.addEventListener("mousedown", handleClickOutside);
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [onClose]);
+
+
+  return (
+    <div ref={modalRef} className="p-6 w-full max-w-lg mx-4 bg-white rounded-lg shadow">
 
       <div className="flex items-center justify-between">
-        <h2 className="text-xl font-bold mb-4 text-slate-800">Add New Issue</h2> 
+        <h2 className="text-xl font-bold mb-4 text-slate-800">Add New Issue</h2>
         <button onClick={onClose}>
           <X size={20} className="stroke-gray-800" />
         </button>

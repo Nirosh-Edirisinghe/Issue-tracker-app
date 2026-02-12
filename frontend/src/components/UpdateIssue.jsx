@@ -1,4 +1,4 @@
-import { useContext, useState, useEffect } from "react";
+import { useContext, useState, useEffect,useRef } from "react";
 import { ChevronDown, X } from "lucide-react";
 import { Listbox } from "@headlessui/react";
 import { AppContext } from "../context/AppContext";
@@ -9,6 +9,7 @@ const priorities = ["Low", "Medium", "High"];
 
 const UpdateIssue = ({ issue, onClose, refreshIssue}) => {
   const { token, backendUrl, fetchAllIssues } = useContext(AppContext);
+  const modalRef = useRef();
 
   const [formData, setFormData] = useState({
     title: "",
@@ -57,10 +58,27 @@ const UpdateIssue = ({ issue, onClose, refreshIssue}) => {
     }
   };
 
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (
+        modalRef.current &&
+        !modalRef.current.contains(event.target)
+      ) {
+        onClose();
+      }
+    };
+  
+    document.addEventListener("mousedown", handleClickOutside);
+  
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [onClose]);
+
   if (!issue) return null;
 
   return (
-    <div className="p-6 w-full max-w-lg mx-4 bg-white rounded-lg shadow">
+    <div ref={modalRef} className="p-6 w-full max-w-lg mx-4 bg-white rounded-lg shadow">
 
       {/* Header */}
       <div className="flex items-center justify-between">

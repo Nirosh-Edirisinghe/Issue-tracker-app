@@ -87,7 +87,7 @@ const Login = () => {
 
   return (
     <>
-      <div className="min-h-screen bg-slate-700 flex items-center justify-center px-4">
+      <div className="min-h-screen bg-slate-900 flex items-center justify-center px-4">
         <div className="bg-white rounded-xl shadow-2xl w-full max-w-4xl grid grid-cols-1 md:grid-cols-2 overflow-hidden my-6">
 
           <div className="flex flex-col justify-between bg-linear-to-br from-slate-50 to-slate-100 p-8">
@@ -174,7 +174,7 @@ const Login = () => {
 
             <button
               type="submit"
-              className="bg-darkblue hover:bg-slate-700 text-white py-2 rounded-md transition"
+              className="bg-darkblue hover:bg-slate-700 text-white py-2 rounded-md transition cursor-pointer"
             >
               {state === "signup" ? "Register" : "Login"}
             </button>
