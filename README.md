@@ -52,6 +52,12 @@
 - Cloudinary ☁️
 - Validator ✅
 
+### Testing
+  
+✅ Manual Testing - The application was tested manually to ensure all functionalities work correctly from the end-user perspective.
+
+📬 API Testing (Postman) - All backend API endpoints were tested using Postman to validate
+
 ---
 
 ## ⚙️ Installation & Setup
