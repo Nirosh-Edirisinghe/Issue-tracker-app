@@ -135,7 +135,7 @@ const GetIssue = () => {
 
               <div className="flex items-center gap-3">
                 <img
-                  src={issue?.userData.image || assets.profile}
+                  src={issue?.userData.image || assets.profile_placeholder}
                   alt="user"
                   className="w-10 h-10 rounded-full"
                 />
