@@ -125,7 +125,7 @@ const Dashboard = () => {
 
                     <td className="px-5 py-4 whitespace-nowrap">
                       <div className="flex items-center gap-3">
-                        <img src={issue.userData.image || assets.profile} alt="user" className="w-8 h-8 rounded-full" />
+                        <img src={issue.userData.image || assets.profile_placeholder} alt="user" className="w-8 h-8 rounded-full" />
                         <span className="text-gray-700">
                           {issue.userData.name}
                         </span>

@@ -2,6 +2,7 @@ import React, { useState, useContext, useEffect, useRef } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import { User, LogOut } from "lucide-react";
 import { AppContext } from "../context/AppContext";
+import { assets } from "../assets/assets";
 
 const SidebarUserMenu = ({onClose}) => {
   const { user, logout } = useContext(AppContext);
@@ -49,7 +50,7 @@ const SidebarUserMenu = ({onClose}) => {
       >
         <div className="flex items-center gap-3">
           <img
-            src={user?.image || "https://i.pravatar.cc/40"}
+            src={user?.image || assets.profile_placeholder}
             alt="user"
             className="w-10 h-10 rounded-full"
           />
