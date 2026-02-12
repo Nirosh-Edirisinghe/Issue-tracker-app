@@ -78,7 +78,7 @@ const Slidebar = ({ sidebarOpen, setSidebarOpen }) => {
           </NavLink>
         </nav>
 
-        <SidebarUserMenu/>
+        <SidebarUserMenu onClose={() => setSidebarOpen(false)}/>
 
 
       </aside>
