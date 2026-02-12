@@ -3,7 +3,7 @@ import { NavLink, useNavigate } from "react-router-dom";
 import { User, LogOut } from "lucide-react";
 import { AppContext } from "../context/AppContext";
 
-const SidebarUserMenu = () => {
+const SidebarUserMenu = ({onClose}) => {
   const { user, logout } = useContext(AppContext);
   const navigate = useNavigate();
   const menuRef = useRef(null);
@@ -77,7 +77,10 @@ const SidebarUserMenu = () => {
 
         <NavLink
           to="/profile"
-          onClick={() => setShowMenu(false)}
+          onClick={() => {
+            setShowMenu(false);
+            if (onClose) onClose();
+          }}
           className="flex items-center gap-3 px-4 py-2 text-slate-400 hover:bg-slate-700 text-sm"
         >
           <User size={16} />
